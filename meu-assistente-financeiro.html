@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#000000">
+<title>FREIVORA</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FREIVORA">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap">
+<style>
+:root{--p:#1A1A1A;--p2:#808080;--on:#E8E8E8;--bg:#E8E8E8;--bgi:radial-gradient(90% 40% at 85% 0%,rgba(255,255,255,.9),transparent 70%),radial-gradient(70% 40% at 0% 50%,rgba(192,192,192,.6),transparent 70%);--tx:#1A1A1A;--mu:#5a5a5a;--card:rgba(255,255,255,.62);--nav:rgba(255,255,255,.78);--in:rgba(255,255,255,.7);--soft:rgba(26,26,26,.07);--line:rgba(26,26,26,.12);--res:rgba(26,26,26,.06);--bar:rgba(26,26,26,.12);--al:#fff4d6;--alt:#6b4a00;--ok:#13804f;--bad:#c53a2c;--hero:linear-gradient(135deg,#1A1A1A,#3a3a3a 55%,#808080);--herotx:#E8E8E8}
+html[data-theme=dark]{color-scheme:dark;--p:#C0C0C0;--p2:#E8E8E8;--on:#000;--bg:#000;--bgi:radial-gradient(90% 40% at 85% 0%,rgba(192,192,192,.18),transparent 70%),radial-gradient(70% 40% at 0% 50%,rgba(128,128,128,.16),transparent 70%);--tx:#E8E8E8;--mu:#9a9a9a;--card:rgba(26,26,26,.7);--nav:rgba(18,18,18,.8);--in:rgba(0,0,0,.45);--soft:rgba(192,192,192,.1);--line:rgba(192,192,192,.16);--res:rgba(192,192,192,.08);--bar:rgba(192,192,192,.18);--al:#2a2410;--alt:#f0c36b;--ok:#3ddc97;--bad:#ff6b5e;--hero:linear-gradient(135deg,#E8E8E8,#C0C0C0 45%,#808080);--herotx:#000}
+html{background-color:var(--bg);background-image:var(--bgi);background-attachment:fixed}
+#gear,#agbtn{color:var(--tx);display:flex;align-items:center;justify-content:center;padding:0;position:fixed;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:30;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--nav);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 4px 14px rgba(0,0,0,.25);font-size:21px}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"Segoe UI",Roboto,system-ui,sans-serif;color:var(--tx);max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:96px}
+header{padding:22px 20px 6px;display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:19px}header small{color:var(--mu);display:block;font-size:13px}
+.card{background:var(--card);border-radius:22px;padding:18px;margin:14px 16px;box-shadow:0 4px 18px rgba(0,0,0,.18);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hero{background:var(--hero);color:var(--herotx);border-radius:26px;padding:22px;margin:14px 16px}
+.hero small{opacity:.85}.hero .big{font-size:34px;font-weight:700;margin:4px 0 14px}
+.hero .row{display:flex;gap:10px}.hero .row div{flex:1;background:color-mix(in srgb,var(--herotx) 12%,transparent);border-radius:14px;padding:10px;font-size:13px}
+.hero .row b{display:block;font-size:15px;margin-top:2px}
+h2{font-size:16px;margin:4px 0 12px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:110px}
+.bars div{flex:1;text-align:center;font-size:11px;color:var(--mu)}
+.bars i{display:block;background:var(--bar);border-radius:8px;margin-bottom:5px;min-height:4px}
+.bars i.hi{background:var(--p)}
+.alert{background:var(--al);color:var(--alt);border-radius:16px;padding:12px 14px;margin:14px 16px;font-size:14px}
+.item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.ic{width:42px;height:42px;border-radius:13px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:20px}
+.item .t{flex:1}.item .t b{display:block;font-size:15px}.item .t small{color:var(--mu)}
+.neg{color:var(--bad);font-weight:600}.pos{color:var(--ok);font-weight:600}
+.btn{border:0;border-radius:14px;padding:12px 16px;font-size:15px;font-weight:600;background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);width:100%}
+.btn.s{width:auto;padding:8px 12px;font-size:13px}.btn.g{background:var(--soft);color:var(--p)}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+input,select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px;font-size:16px;background:var(--in);color:var(--tx)}
+.two{display:flex;gap:10px}
+.res{background:var(--res);border-radius:16px;padding:14px;margin-top:14px;font-size:15px;line-height:1.5}
+nav{z-index:35;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--nav);display:flex;justify-content:space-around;align-items:center;padding:8px 6px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -6px 20px rgba(0,0,0,.2);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-radius:24px 24px 0 0}
+nav button{background:none;border:0;font-size:11px;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;flex:1;min-width:0}
+nav button span{font-size:21px}nav button.on{color:var(--p);font-weight:700}
+nav .plus{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);font-size:30px;margin-top:-30px;justify-content:center;box-shadow:0 6px 16px rgba(192,192,192,.3)}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:flex-end;z-index:46}
+#sheet.on{display:flex}
+#sheet>div{background:var(--nav);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);width:100%;max-width:480px;margin:0 auto;border-radius:26px 26px 0 0;padding:20px 20px 30px;max-height:92vh;overflow:auto}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font-size:15px;font-weight:600;color:var(--mu)}
+.seg button.on{background:var(--card);color:var(--p);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.chat{max-height:46vh;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.msg{padding:10px 13px;border-radius:16px;max-width:85%;font-size:15px;line-height:1.4}
+.me{align-self:flex-end;background:var(--p);color:var(--on)}.ia{align-self:flex-start;background:var(--soft)}
+.empty{color:var(--mu);text-align:center;padding:14px;font-size:14px}
+.mn{display:flex;justify-content:space-between;align-items:center}
+.bk{height:10px;border-radius:6px;background:var(--bar);overflow:hidden}.bk i{display:block;height:100%;border-radius:6px}
+#splash{position:fixed;inset:0;background:#000 radial-gradient(70% 45% at 50% 40%,#1c1c1c,#000 70%);display:flex;align-items:center;justify-content:center;z-index:50;transition:opacity .7s ease}
+#splash.off{opacity:0;pointer-events:none}
+#splash .lg{width:min(36vw,160px);perspective:600px}
+#splash svg{display:block;width:100%;overflow:visible}
+#splash text{font-family:"Orbitron","Eurostile","Segoe UI",system-ui,sans-serif;font-weight:400}
+.mkw{position:relative}
+.mk{filter:drop-shadow(0 0 8px rgba(232,232,232,.35));animation:spin 2s cubic-bezier(.16,.8,.2,1) .3s both}
+.flare{position:absolute;left:6%;right:6%;top:64%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 14px 3px rgba(232,232,232,.55);transform:scaleX(0);opacity:0;animation:flare 1.3s ease-out .1s both}
+.b{transform-box:fill-box;transform-origin:50% 100%;animation:rise .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1s + var(--i)*.13s)}
+.fl,.sw{animation:slide 1s cubic-bezier(.2,.8,.2,1) both}
+.fl{animation-delay:1.15s}.sw{animation-delay:1.3s}
+.shine{animation:shn 1.5s ease-in-out 2.3s both}
+.wm{animation:wm 1.3s ease-out 2s both}
+.ln{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1s ease-out 2.5s forwards}
+.ln.ar{animation-delay:3s}
+.tg{animation:fade 1.1s ease-out 3.2s both}.tg.t2{animation-delay:3.5s}
+@keyframes spin{from{transform:rotateY(-110deg) scale(.88);opacity:0}30%{opacity:1}to{transform:rotateY(0) scale(1);opacity:1}}
+@keyframes flare{0%{transform:scaleX(0);opacity:0}35%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1.25);opacity:0}}
+@keyframes rise{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
+@keyframes slide{from{transform:translateX(-34px);opacity:0}to{transform:none;opacity:1}}
+@keyframes shn{from{transform:translateX(-200px) skewX(-20deg);opacity:1}to{transform:translateX(560px) skewX(-20deg);opacity:1}}
+@keyframes wm{from{opacity:0;filter:blur(10px)}to{opacity:1;filter:blur(0)}}
+@keyframes dr{to{stroke-dashoffset:0}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#splash *{animation:none!important}.ln{stroke-dashoffset:0!important}.flare,.shine{display:none}}
+body.chat{padding-bottom:0}
+body.chat nav,body.chat #gear,body.set #gear,body.chat #agbtn{display:none}
+.chatwrap{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom))}
+.ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.chatwrap .chat{flex:1;max-height:none;padding:6px 2px}
+.hello{margin:auto;text-align:center;letter-spacing:.3em;font-weight:600;color:var(--tx)}
+.hello small{display:block;margin-top:6px;letter-spacing:.05em;font-weight:400;color:var(--mu)}
+#sug button{display:flex;gap:16px;align-items:center;width:100%;background:none;border:0;color:var(--tx);font-size:17px;padding:13px 6px;text-align:left}
+#sug span{width:26px;text-align:center}
+.cin{display:flex;align-items:center;gap:8px;background:var(--nav);border:1px solid var(--line);border-radius:30px;padding:8px 8px 8px 16px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cin input{width:auto;min-width:0;flex:1;border:0;background:none;padding:8px 0;outline:0}
+.cin button{width:42px;height:42px;border-radius:50%;border:0;background:var(--soft);color:var(--tx);font-size:18px;flex:none}
+.cin .sendb{background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on)}
+.cin #mic.on{background:var(--bad);color:#fff}
+.hero .row{flex-wrap:wrap}.hero .row div{min-width:40%}
+#auth{--p:#C0C0C0;--p2:#E8E8E8;--on:#000;--tx:#E8E8E8;--mu:#9a9a9a;--line:rgba(192,192,192,.18);--soft:rgba(192,192,192,.1);--in:rgba(0,0,0,.5);--bad:#ff6b5e;--card:#1A1A1A;color:#E8E8E8;color-scheme:dark;position:fixed;inset:0;z-index:45;display:none;flex-direction:column;justify-content:center;padding:24px;background:#000 radial-gradient(70% 40% at 50% 0%,#222,#000 70%);overflow:auto}
+#auth.on{display:flex}
+#auth .box{max-width:400px;width:100%;margin:0 auto}
+#auth h1{letter-spacing:.35em;font-size:22px;text-align:center;font-weight:600;margin-bottom:6px}
+#auth .sub{text-align:center;color:var(--mu);font-size:14px;margin-bottom:22px}
+.hero .phr{font-size:14px;margin:4px 0 14px;opacity:.92;line-height:1.35;cursor:pointer}
+.wg{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:14px;margin:14px 16px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.wgi{display:flex;align-items:center;gap:14px;width:100%;background:var(--soft);border:0;border-radius:26px;padding:16px 18px;color:var(--tx);font-size:16px;text-align:left}
+.wgi svg{flex:none}
+.wgb{display:flex;justify-content:space-between;margin-top:12px}
+.wgb button{width:56px;height:56px;border-radius:50%;border:0;background:var(--soft);color:var(--tx);display:flex;align-items:center;justify-content:center}
+.sg{padding:4px 16px}
+.srow{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 0;color:var(--tx);text-align:left;font-size:15px}
+.srow:last-child{border-bottom:0}
+.si{width:36px;height:36px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none}
+.st{flex:1;min-width:0}.st b{display:block;font-weight:600}
+.st small{display:block;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc{color:var(--mu);font-size:20px}
+.srow.bad,.srow.bad .st b{color:var(--bad)}
+.swt{width:48px;height:28px;border-radius:14px;background:var(--bar);position:relative;flex:none;transition:background .2s}
+.swt i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--tx);transition:transform .2s}
+.swt.on{background:var(--p)}.swt.on i{transform:translateX(20px);background:var(--on)}
+.two>div{min-width:0;flex:1}
+input[type=date]{display:block;min-height:46px;text-align:left;-webkit-appearance:none;appearance:none}
+input[type=date]::-webkit-date-and-time-value{text-align:left}
+#agbtn{right:64px}
+body:not(.home) #agbtn{display:none}
+body:has(#sheet.on) #gear,body:has(#sheet.on) #agbtn{display:none}
+#welcome{--soft:rgba(192,192,192,.1);--p:#C0C0C0;--p2:#E8E8E8;--on:#000;--tx:#E8E8E8;--mu:#9a9a9a;--line:rgba(192,192,192,.18);color:#E8E8E8;color-scheme:dark;position:fixed;inset:0;z-index:44;display:none;background:#000 radial-gradient(80% 45% at 50% 0%,#252525,#000 70%);overflow:auto}
+#welcome.on{display:block}
+.wbox{min-height:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding:calc(34px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));gap:18px}
+.wlogo{display:flex;flex-direction:column;align-items:center;gap:6px}
+.wb{letter-spacing:.38em;font-size:13px;font-weight:600;color:var(--tx)}
+.wgr{font-size:20px;font-weight:500;color:var(--tx)}
+.wclock{font-size:64px;font-weight:200;letter-spacing:.02em;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,#9a9a9a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wdate{color:var(--mu);font-size:15px;margin-top:4px}
+.wx{margin-top:14px;display:inline-block;padding:9px 16px;border-radius:22px;background:rgba(192,192,192,.1);border:1px solid var(--line);font-size:14px;color:var(--tx);min-height:20px}
+.wmsg{max-width:340px}
+.wph{font-size:19px;line-height:1.4;color:var(--tx);font-weight:400}
+.wlink{background:none;border:0;color:var(--mu);font-size:14px;margin-top:12px;padding:6px 10px}
+.wgo{width:100%;max-width:360px}
+.lgd{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:var(--tx);padding:10px 0;font-size:14px;text-align:left}
+.lgd i{width:12px;height:12px;border-radius:4px;flex:none}.lgd span{flex:1;min-width:0}.lgd small{color:var(--mu);width:38px;text-align:right}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;text-align:center}
+.cal span{color:var(--mu);font-size:12px;padding-bottom:2px}.cal i{display:block}
+.cd{aspect-ratio:1;border:0;border-radius:12px;background:none;color:var(--tx);font-size:15px;position:relative;padding:0}
+.cd.td{box-shadow:inset 0 0 0 1px var(--p)}
+.cd.sl{background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);font-weight:700}
+.cd u{position:absolute;bottom:5px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--p)}
+.cd.sl u{background:var(--on)}
+.dt{width:46px;height:50px;border-radius:12px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.dt b{font-size:18px;line-height:1.1}.dt small{font-size:10px;letter-spacing:.08em;color:var(--mu)}
+#auth .ob{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border-radius:14px;border:1px solid var(--line);background:var(--soft);color:var(--tx);font-size:15px;font-weight:600;margin-bottom:10px}
+#auth .box.st{text-align:center}
+#auth .rb{display:flex;justify-content:center;gap:40px;margin-top:26px}
+#auth .rb div{display:flex;flex-direction:column;align-items:center;gap:8px}
+#auth .rnd{width:64px;height:64px;border-radius:50%;border:1px solid var(--line);background:var(--soft);color:var(--tx);display:flex;align-items:center;justify-content:center;padding:0}
+#auth .rb small{font-size:12px;color:var(--mu)}
+#auth .or{display:flex;align-items:center;gap:12px;color:var(--mu);font-size:13px;margin:14px 0}
+#auth .or i{flex:1;height:1px;background:var(--line)}
+#auth .wlink{display:block;margin:14px auto 0;color:var(--mu)}
+.wag{width:100%;max-width:360px;background:rgba(192,192,192,.08);border:1px solid var(--line);border-radius:22px;padding:14px;text-align:left}
+.wagh{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.wstrip{display:flex;justify-content:space-between;margin:10px 0 12px}
+.wd{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 6px;border-radius:12px;min-width:38px}
+.wd small{font-size:9px;color:var(--mu);letter-spacing:.06em}.wd b{font-size:16px;font-weight:600}
+.wd u{width:5px;height:5px;border-radius:50%;background:#C0C0C0}.wd u.z{background:transparent}
+.wd.on{background:linear-gradient(135deg,#E8E8E8,#C0C0C0);color:#000}.wd.on small{color:#333}.wd.on u{background:#000}
+.wev{display:flex;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.wev b{display:block;font-size:15px;font-weight:600}.wev small{color:var(--mu);font-size:13px}
+.wnone{color:var(--mu);font-size:14px;padding:4px 0 2px}
+nav .plus{flex:none;width:56px;margin:-30px 6px 0}
+#qa{position:fixed;inset:0;z-index:34;visibility:hidden;opacity:0;transition:opacity .22s ease,visibility 0s linear .45s}
+#qa.on{visibility:visible;opacity:1;transition:opacity .22s ease}
+.qb{position:absolute;inset:0;background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.ql{position:absolute;left:0;right:0;bottom:calc(98px + env(safe-area-inset-bottom));display:flex;flex-direction:column-reverse;align-items:center;gap:10px}
+.qi{display:flex;align-items:center;gap:12px;min-width:240px;padding:9px 22px 9px 10px;border-radius:30px;border:1px solid var(--line);background:var(--nav);color:var(--tx);font-size:15px;font-weight:600;transform:translateY(28px) scale(.82);opacity:0;transition:transform .4s cubic-bezier(.2,.9,.3,1.25),opacity .22s ease}
+.qi span{width:38px;height:38px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:18px}
+#qa.on .qi{transform:none;opacity:1;transition-delay:calc(var(--i)*45ms)}
+#add{transition:transform .32s cubic-bezier(.2,.9,.3,1.2)}#add.x{transform:rotate(45deg)}
+.lk{background:none;border:0;color:var(--p);font-size:13px;font-weight:600;padding:4px 0 0;text-align:left}
+@media(prefers-reduced-motion:reduce){#qa,.qi,#add{transition:none}}
+header.sub{justify-content:flex-start;gap:12px}
+.back{width:42px;height:42px;border-radius:50%;border:0;background:var(--soft);font-size:20px;color:var(--tx);flex:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 12px;padding:10px 20px}
+.tile{background:none;border:0;color:var(--tx);font-size:13px;line-height:1.25}
+.tile span{display:flex;align-items:center;justify-content:center;height:84px;border-radius:24px;background:var(--soft);font-size:30px;margin-bottom:8px}
+.pills{display:flex;gap:8px;overflow-x:auto;margin-top:14px}
+.pills button{border:0;border-radius:20px;padding:10px 16px;background:var(--soft);color:var(--tx);font-size:15px;white-space:nowrap}
+.pills button.on{background:var(--tx);color:var(--bg)}
+@media(prefers-reduced-motion:reduce){#splash{transition:none}}
+</style>
+</head>
+<body>
+<div id="splash" onclick="endSplash()" role="img" aria-label="FREIVORA, seu dinheiro, suas escolhas, seu futuro">
+<div class="lg">
+<div class="mkw"><i class="flare"></i>
+<svg class="mk" viewBox="280 70 480 310" aria-hidden="true">
+<defs>
+<linearGradient id="sv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8E8E8"/><stop offset=".38" stop-color="#C0C0C0"/><stop offset=".62" stop-color="#808080"/><stop offset=".86" stop-color="#E8E8E8"/><stop offset="1" stop-color="#A8A8A8"/></linearGradient>
+<linearGradient id="sh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<clipPath id="cm"><path d="M372 197 C395 140 435 100 480 88 L737 86 L712 142 L508 144 C438 150 398 170 372 197 Z"/><path d="M462 222 L478 183 L668 183 L646 239 L508 239 L508 366 L462 366 Z"/><path d="M406 240 L441 212 L441 366 L406 366 Z"/><path d="M352 284 L390 258 L390 366 L352 366 Z"/><path d="M300 336 L336 312 L336 366 L300 366 Z"/></clipPath>
+</defs>
+<g fill="url(#sv)">
+<path class="b" style="--i:0" d="M300 336 L336 312 L336 366 L300 366 Z"/><path class="b" style="--i:1" d="M352 284 L390 258 L390 366 L352 366 Z"/><path class="b" style="--i:2" d="M406 240 L441 212 L441 366 L406 366 Z"/>
+<path class="fl" d="M462 222 L478 183 L668 183 L646 239 L508 239 L508 366 L462 366 Z"/><path class="sw" d="M372 197 C395 140 435 100 480 88 L737 86 L712 142 L508 144 C438 150 398 170 372 197 Z"/>
+</g>
+<g clip-path="url(#cm)"><rect class="shine" x="280" y="60" width="110" height="330" fill="url(#sh)"/></g>
+</svg></div>
+<svg class="tx" viewBox="60 420 900 380" aria-hidden="true">
+<text class="wm" x="504" y="515" text-anchor="middle" font-size="104" textLength="780" lengthAdjust="spacing" fill="url(#sv)">FREIVORA</text>
+<g fill="none" stroke="#C0C0C0" stroke-linecap="round" stroke-linejoin="round">
+<path class="ln" pathLength="1" d="M425 577 L180 577" stroke-width="3"/><path class="ln" pathLength="1" d="M570 577 L815 577" stroke-width="3"/>
+<path class="ln ar" pathLength="1" d="M458 600 L478 580 L490 590 L534 553 M512 551 L534 553 L536 575" stroke="#E8E8E8" stroke-width="7"/>
+</g>
+<text class="tg" x="504" y="728" text-anchor="middle" font-size="36" textLength="860" lengthAdjust="spacing" fill="#C0C0C0">SEU DINHEIRO. SUAS ESCOLHAS.</text>
+<text class="tg t2" x="504" y="788" text-anchor="middle" font-size="36" textLength="340" lengthAdjust="spacing" fill="#C0C0C0">SEU FUTURO.</text>
+</svg>
+</div>
+</div>
+<button id="gear" aria-label="Configurações"></button>
+<button id="agbtn" aria-label="Agenda"></button>
+<main id="view"></main>
+<div id="sheet"><div id="form"></div></div>
+<div id="qa"></div>
+<div id="auth"></div>
+<div id="welcome"></div>
+<nav>
+<button data-t="home"><span>🏠</span>Início</button>
+<button data-t="bills"><span>🔔</span>Contas</button>
+<button data-t="cards"><span>💳</span>Cartões</button>
+<button class="plus" id="add" aria-label="Criar">＋</button>
+<button data-t="comm"><span>💼</span>Comissão</button>
+<button data-t="goals"><span>🎯</span>Metas</button>
+<button data-t="invest"><span>📈</span>Investir</button>
+</nav>
+<script>
+const $=s=>document.querySelector(s);
+const DEF=()=>({tx:[],token:'',chat:[],goals:[],inv:[],ag:[],cm:[]});
+let S=DEF(),KEY=null;
+const load=k=>{try{return Object.assign(DEF(),JSON.parse(localStorage.getItem(k))||{})}catch(e){return DEF()}};
+let CL=null,SB=null,PT=null;
+const save=ns=>{
+  if(!KEY)return;
+  if(!ns)S._t=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  if(CL&&SB&&!ns){clearTimeout(PT);PT=setTimeout(pushNow,1500)}
+};
+async function pushNow(){
+  if(!(CL&&SB))return;
+  const {token,av,wx,chat,cityLoc,...pub}=S;
+  try{await SB.from('user_data').upsert({user_id:CL.id,data:pub,updated_at:new Date().toISOString()})}catch(e){}
+}
+const AK='fin_accounts';
+let AC={users:{},cur:''};
+try{AC=Object.assign(AC,JSON.parse(localStorage.getItem(AK))||{})}catch(e){}
+const saveAC=()=>{try{localStorage.setItem(AK,JSON.stringify(AC))}catch(e){}};
+let CFG={url:'',key:''};
+try{CFG=Object.assign(CFG,JSON.parse(localStorage.getItem('fin_cfg'))||{})}catch(e){}
+const cloudOn=()=>!!(CFG.url&&CFG.key);
+const nm=()=>CL?CL.name:(AC.users[AC.cur]||{}).name||'';
+const fn=()=>nm().split(' ')[0]||'você';
+const R=v=>(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CAT={Delivery:'🍔',Assinaturas:'📺',Pessoal:'🧴',Casa:'🏠',Transporte:'🚗',Lazer:'🎮',Salário:'💼',Outros:'📦'};
+let tab='home';
+
+/* ===== CÁLCULOS ===== */
+const ins=()=>S.tx.filter(t=>t.type=='in');
+const outs=()=>S.tx.filter(t=>t.type=='out'&&t.paid!==false);
+const pend=()=>S.tx.filter(t=>t.type=='out'&&t.paid===false).sort((a,b)=>a.date<b.date?-1:1);
+const sum=a=>a.reduce((s,t)=>s+t.val,0);
+const saldo=()=>sum(ins())-sum(outs());
+const month=()=>iso(new Date()).slice(0,7);
+function byCat(){const m={};outs().filter(t=>t.date.startsWith(month())).forEach(t=>m[t.cat]=(m[t.cat]||0)+t.val);return m}
+
+/* ===== TELAS ===== */
+function item(t,btn){
+  return `<div class="item"><div class="ic">${CAT[t.cat]||'📦'}</div><div class="t"><b>${esc(t.name)}</b><small>${t.cat}${t.bank?' · '+esc(t.bank):''} · ${t.date.split('-').reverse().join('/')}</small></div>
+  ${btn?`<button class="btn s g" onclick="pay('${t.id}')">Pagar</button>`:`<span class="${t.type=='in'?'pos':'neg'}">${t.type=='in'?'+':'−'}${R(t.val)}</span>`}</div>`;
+}
+const billRow=t=>`<div class="item"><div class="ic">${CAT[t.cat]||'📦'}</div><div class="t"><b>${esc(t.name)}</b><small class="${t.date<iso(new Date())?'neg':''}">${R(t.val)} · vence ${t.date.split('-').reverse().join('/')}</small></div><button class="btn s g" onclick="pay('${t.id}')">Pagar</button></div>`;
+function mesCalc(){
+  const mk=month(),d=new Date(),fim=iso(new Date(d.getFullYear(),d.getMonth()+1,0));
+  const rec=sum(ins().filter(t=>t.date.startsWith(mk))),gast=sum(outs().filter(t=>t.date.startsWith(mk)));
+  const pagar=sum(pend().filter(t=>t.date<=fim)),sep=(S.cm||[]).filter(c=>c.d.startsWith(mk)).reduce((a,c)=>a+c.res+c.inv,0);
+  return {rec,gast,pagar,sep,livre:rec-gast-pagar-sep};
+}
+function home(){
+  const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return d});
+  const vals=days.map(d=>sum(outs().filter(t=>t.date==iso(d))));
+  const mx=Math.max(...vals,1);
+  const bars=days.map((d,i)=>`<div><i class="${i==6?'hi':''}" style="height:${vals[i]/mx*90}px"></i>${'DSTQQSS'[d.getDay()]}</div>`).join('');
+  const soon=pend().filter(t=>t.date<=iso(new Date(Date.now()+3*864e5)));
+  const cats=Object.entries(byCat()).sort((a,b)=>b[1]-a[1]);
+  const M=mesCalc(),livre=Math.max(0,M.livre);
+  const rec=[...S.tx].sort((a,b)=>a.date<b.date?1:-1).slice(0,6);
+  return `<header><div><small style="letter-spacing:.32em;font-weight:600">FREIVORA</small><h1>Suas finanças</h1></div></header>
+  <div class="hero"><div class="mn"><b style="font-size:18px">Olá, ${esc(fn())} 👋</b></div><div class="phr">${esc(curPhrase())}</div><small>Valor livre do mês</small><div class="big">${R(M.livre)}</div><small style="display:block;margin:-8px 0 12px;opacity:.8">${M.livre<0?'Você já usou mais do que recebeu neste mês.':'Receitas − gastos − a pagar − separado'}</small>
+  <div class="row"><div>Receitas do mês<b>${R(M.rec)}</b></div><div>A pagar<b>${R(M.pagar)}</b></div><div>Gastos<b>${R(M.gast)}</b></div><div>Separado<b>${R(M.sep)}</b></div></div></div>
+  ${widget()}
+  ${soon.length?`<div class="alert">🔔 ${soon.length} conta(s) vencendo em até 3 dias: ${soon.map(t=>esc(t.name)).join(', ')}</div>`:''}
+  <div class="card"><div class="mn"><h2 style="margin:0">Contas a pagar</h2><button class="btn s g" onclick="tab='bills';render()">Ver todas ›</button></div>${pend().length?pend().slice(0,3).map(billRow).join(''):'<div class="empty">Nenhuma conta pendente.</div>'}</div>
+  <div class="card"><h2>Gastos nos últimos 7 dias</h2><div class="bars">${bars}</div></div>
+  <div class="card"><h2>Neste mês</h2>${cats.length?cats.map(([c,v])=>`<div class="item"><div class="ic">${CAT[c]||'📦'}</div><div class="t">Você gastou <b>${R(v)}</b> com ${c}</div></div>`).join(''):'<div class="empty">Sem gastos ainda. Toque em ＋ para lançar o primeiro.</div>'}
+  <div class="res">💡 Você pode investir hoje: <b>${R(livre)}</b><br><small>Valor livre do mês, já sem contas a pagar e sem o que foi separado.</small></div></div>
+  <div class="card"><h2>Recentes</h2>${rec.length?rec.map(t=>item(t)).join(''):'<div class="empty">Nada por aqui ainda.</div>'}</div>`;
+}
+function bills(){
+  const p=pend();
+  return `<header class="sub"><button class="back" onclick="tab='home';render()">←</button><h1>Contas a pagar</h1></header>
+  <div class="card">${p.length?p.map(t=>item(t,1)+`<small class="${t.date<iso(new Date())?'neg':''}" style="margin-left:54px">${R(t.val)} · vence ${t.date.split('-').reverse().join('/')}${t.date<iso(new Date())?' (atrasada)':''}</small>`).join(''):'<div class="empty">Nenhuma conta pendente. Use ＋ e marque "É uma conta a pagar".</div>'}</div>
+  <div class="alert">Lembretes no celular (notificação no dia do vencimento) entram na etapa 2.</div>`;
+}
+/* ===== CARTÕES / OPEN FINANCE (bancos vêm automáticos) ===== */
+let cm=0;
+const BC=['#E8E8E8','#9aa0a6','#C0C0C0','#808080'];
+const mkey=o=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()+o);return iso(d).slice(0,7)};
+const banks=()=>[...new Set(S.tx.filter(t=>t.card&&t.bank).map(t=>t.bank))].sort();
+function cards(){
+  const k=mkey(cm),cs=S.tx.filter(t=>t.card&&t.type=='out'&&t.date.startsWith(k)),bs=banks();
+  const mes=new Date(k+'-15').toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const tot=sum(cs),mx=Math.max(...bs.map(b=>sum(cs.filter(t=>t.bank==b))),1);
+  const bank=(b,i)=>{
+    const l=cs.filter(t=>t.bank==b).sort((x,y)=>x.date<y.date?1:-1),c={};
+    l.forEach(t=>c[t.cat]=(c[t.cat]||0)+t.val);
+    const top=Object.entries(c).sort((x,y)=>y[1]-x[1]).slice(0,3);
+    return `<div class="card"><div class="mn"><h2 style="margin:0">${esc(b)}</h2><b>${R(sum(l))}</b></div>
+    <div class="bk" style="margin:10px 0"><i style="width:${sum(l)/mx*100}%;background:${BC[i%BC.length]}"></i></div>
+    ${top.map(x=>`<small style="color:var(--mu);display:block">${CAT[x[0]]||'📦'} ${x[0]}: ${R(x[1])}</small>`).join('')}
+    <div style="margin-top:10px">${l.length?l.slice(0,5).map(t=>item(t)).join(''):'<div class="empty">Nenhum gasto neste mês.</div>'}</div></div>`;
+  };
+  return `<header><h1>Cartões</h1></header>
+  <div class="hero"><div class="mn"><button class="back" style="background:color-mix(in srgb,var(--herotx) 15%,transparent);color:var(--herotx)" onclick="cm--;render()">‹</button><small>${mes[0].toUpperCase()+mes.slice(1)}</small><button class="back" style="background:color-mix(in srgb,var(--herotx) 15%,transparent);color:var(--herotx)" onclick="if(cm<0){cm++;render()}">›</button></div>
+  <div class="big" style="margin-top:10px">${R(tot)}</div>
+  ${bs.length?`<div class="row">${bs.map(b=>`<div>${esc(b)}<b>${R(sum(cs.filter(t=>t.bank==b)))}</b></div>`).join('')}</div>`:''}</div>
+  ${bs.length?bs.map(bank).join(''):'<div class="card"><div class="empty">Seus cartões aparecem aqui sozinhos depois que você sincronizar o Open Finance. Os bancos e os gastos vêm direto da conexão.</div></div>'}
+  <div class="card"><h2>Open Finance</h2>
+  <button class="btn" onclick="syncOF()">Sincronizar agora</button>
+  <div id="ofs" style="margin-top:10px;color:var(--mu);font-size:14px">${S.ofAt?'Última sincronização: '+S.ofAt:'Ainda não sincronizado.'}</div>
+  <button class="btn g" style="margin-top:10px" onclick="tab='settings';sv='of';render();scrollTo(0,0)">Configurar Open Finance</button></div>`;
+}
+async function syncOF(){
+  const el=$('#ofs');
+  if(!S.api){el.innerHTML='<div class="alert">Configure o Open Finance na engrenagem, em Configurações. Veja o guia de configuração do servidor.</div>';return}
+  el.textContent='Sincronizando...';
+  try{
+    const r=await fetch(S.api.replace(/\/$/,'')+'/transactions',{headers:S.apiTok?{Authorization:'Bearer '+S.apiTok}:{}});if(!r.ok)throw 0;
+    const ok=(await r.json()).filter(x=>x&&x.id&&x.date&&x.val>0&&x.bank);
+    S.tx=S.tx.filter(t=>t.src!='of').concat(ok.map(x=>({id:'of'+x.id,type:'out',name:x.name||'Compra',val:+x.val,date:String(x.date).slice(0,10),cat:CAT[x.cat]?x.cat:'Outros',card:true,bank:String(x.bank).slice(0,30),src:'of'})));
+    S.ofAt=new Date().toLocaleString('pt-BR');save();render();
+  }catch(e){el.innerHTML='<div class="alert">Não consegui sincronizar. Confira o endereço do servidor.</div>'}
+}
+/* ===== INVESTIMENTOS ===== */
+/* Taxas do simulador são ESTIMATIVAS editáveis */
+const INV=[
+{g:'Renda fixa',n:'CDB / CDI',r:14,cdi:100,d:'Rende uma % do CDI.'},
+{g:'Renda fixa',n:'LCI / LCA',r:14,cdi:90,d:'Rende uma % do CDI e não paga IR para pessoa física.'},
+{g:'Renda fixa',n:'Tesouro Selic',r:14.2,d:'Acompanha a taxa Selic.'},
+{g:'Renda fixa',n:'Tesouro IPCA+',r:11,d:'Juro fixo mais a inflação.'},
+{g:'Renda fixa',n:'Poupança',r:10,d:'Costuma render menos que CDB e Tesouro.'},
+{g:'Outros',n:'Cofrinho',r:14,cdi:100,d:'Rendimento diário, em geral perto de 100% do CDI.'},
+{g:'Outros',n:'Previdência',r:11,d:'PGBL ou VGBL, para o longo prazo.'},
+{g:'Outros',n:'Fundos de investimento',r:12,d:'Dinheiro reunido e gerido por um gestor.'},
+{g:'Bolsa',n:'Ações da B3',r:12,d:'Retorno variável, com risco de perda.'},
+{g:'Bolsa',n:'Fundos imobiliários (FIIs)',r:11,d:'Pagam rendimentos todo mês.'},
+{g:'Bolsa',n:'S&P 500 (EUA)',r:10,d:'As 500 maiores empresas dos EUA, em dólar.'}];
+const PER=['24h','1 semana','1 mês','1 ano','Tudo'];
+const MK={
+moedas:{n:'Moedas',p:'aw',cur:'R$',a:[{c:'USD-BRL',n:'Dólar',s:'USD'},{c:'EUR-BRL',n:'Euro',s:'EUR'},{c:'GBP-BRL',n:'Libra esterlina',s:'GBP'},{c:'JPY-BRL',n:'Iene',s:'JPY'}]},
+cripto:{n:'Cripto',p:'cg',cur:'R$',a:[{c:'bitcoin',n:'Bitcoin',s:'BTC'},{c:'ethereum',n:'Ethereum',s:'ETH'},{c:'tether',n:'Tether',s:'USDT'},{c:'solana',n:'Solana',s:'SOL'},{c:'ripple',n:'XRP',s:'XRP'}]},
+nac:{n:'Ações nacionais',p:'br',cur:'R$',a:[['PETR4','Petrobras'],['VALE3','Vale'],['ITUB4','Itaú'],['BBDC4','Bradesco'],['BBAS3','Banco do Brasil'],['WEGE3','WEG'],['ABEV3','Ambev'],['MGLU3','Magalu']].map(x=>({c:x[0],n:x[1]}))},
+fii:{n:'Fundos imobiliários',p:'br',cur:'R$',a:[['HGLG11','CSHG Logística'],['MXRF11','Maxi Renda'],['KNRI11','Kinea Renda Imobiliária'],['XPML11','XP Malls'],['VISC11','Vinci Shopping Centers']].map(x=>({c:x[0],n:x[1]}))},
+etf:{n:'ETFs',p:'br',cur:'R$',a:[['BOVA11','Ibovespa'],['IVVB11','S&P 500 em reais'],['SMAL11','Small caps'],['HASH11','Cripto']].map(x=>({c:x[0],n:x[1]}))},
+int:{n:'Ações internacionais',p:'av',cur:'US$',a:[['AAPL','Apple'],['MSFT','Microsoft'],['NVDA','Nvidia'],['TSLA','Tesla'],['AMZN','Amazon'],['GOOGL','Alphabet']].map(x=>({c:x[0],n:x[1]}))}};
+const TILES=[['moedas','💱','Moedas'],['cripto','₿','Cripto'],['int','🌎','Ações internacionais'],['nac','↕️','Ações nacionais'],['fii','🏠','Fundos imobiliários'],['etf','📊','ETFs'],['sim:CDB / CDI','🏦','CDB liquidez diária'],['sim:Tesouro Selic','📈','Renda fixa'],['sim:LCI / LCA','🥧','LCI e LCA'],['sim:Fundos de investimento','💼','Fundos de investimento'],['sim:Previdência','🔐','Previdência'],['sim:Cofrinho','🐷','Cofrinhos']];
+let iv={v:'grid'},req=0;
+const go=o=>{iv=o;render();scrollTo(0,0)};
+const tileGo=k=>k.startsWith('sim:')?go({v:'sim',n:k.slice(4)}):go({v:'list',k});
+const openA=i=>go({v:'asset',k:iv.k,a:MK[iv.k].a[i],per:'1 mês'});
+const setPer=p=>{iv.per=p;render()};
+function openC(){const c=$('#cc').value.trim().toUpperCase();if(!c)return;go({v:'asset',k:iv.k,a:{c,n:c},per:'1 mês'})}
+function invest(){return {grid:invGrid,list:invList,asset:assetView,sim:simView}[iv.v]()}
+const CT=[...INV.map(i=>i.n),'Cripto','Moedas','Outro'];
+const PC=['#E8E8E8','#9aa0a6','#C0C0C0','#6f6f6f','#d4d4d4','#8a8a8a','#b8b8b8','#a6a6a6','#7d7d7d','#f2f2f2','#5f5f5f','#cfcfcf','#909090','#bdbdbd'];
+let selT=null,TS=[];
+const curVal=p=>p.cur>0?p.cur:p.v*Math.pow(1+(p.r||0)/100,Math.max(0,(Date.now()-new Date(p.d).getTime())/864e5)/365);
+const pickT=i=>{selT=selT==TS[i]?null:TS[i];render()};
+function carteira(){
+  const L=S.inv||[];
+  const head=`<div class="mn"><h2 style="margin:0">Minha carteira</h2><button class="btn s g" onclick="posForm()">＋ Adicionar</button></div>`;
+  if(!L.length)return `<div class="card">${head}<div class="empty">Cadastre os investimentos que você tem para ver o gráfico da carteira aqui.</div></div>`;
+  const by={};L.forEach(p=>by[p.t]=(by[p.t]||0)+curVal(p));
+  const ts=Object.entries(by).sort((a,b)=>b[1]-a[1]);TS=ts.map(x=>x[0]);
+  if(selT&&!by[selT])selT=null;
+  const tot=ts.reduce((a,x)=>a+x[1],0),inv=L.reduce((a,p)=>a+p.v,0),r=62,C=2*Math.PI*r;let acc=0;
+  const seg=ts.map((x,i)=>{
+    const len=Math.max(0,x[1]/tot*C-(ts.length>1?2:0));
+    const el=`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${PC[i%PC.length]}" stroke-width="${selT==x[0]?26:20}" stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-acc).toFixed(2)}" transform="rotate(-90 80 80)" style="cursor:pointer;opacity:${selT&&selT!=x[0]?.35:1}" onclick="pickT(${i})"/>`;
+    acc+=x[1]/tot*C;return el;
+  }).join('');
+  const big=tot>=1e6?(tot/1e6).toFixed(2).replace('.',',')+' mi':R(tot).replace('R$ ','');
+  const lucro=tot-inv;
+  const det=selT?`<div style="margin-top:12px;border-top:1px solid var(--line);padding-top:10px"><b>${esc(selT)}</b> <small style="color:var(--mu)">${(by[selT]/tot*100).toFixed(1).replace('.',',')}% da carteira · ${R(by[selT])}</small>
+    ${L.filter(p=>p.t==selT).map(p=>{const c=curVal(p),l=c-p.v;return `<div class="item"><div class="t"><b>${esc(p.n||p.t)}</b><small>Aplicado ${R(p.v)} em ${p.d.split('-').reverse().join('/')}</small></div><div style="text-align:right"><b>${R(c)}</b><br><small class="${l>=0?'pos':'neg'}">${l>=0?'+':'−'}${R(Math.abs(l))}</small></div><button class="btn s g" onclick="posForm('${p.id}')" aria-label="Editar">✎</button><button class="btn s g" onclick="delPos('${p.id}')" aria-label="Apagar">🗑</button></div>`}).join('')}</div>`:'<small style="color:var(--mu);display:block;text-align:center;margin-top:6px">Toque no gráfico ou na lista para ver os detalhes.</small>';
+  return `<div class="card">${head}
+  <svg viewBox="0 0 160 160" width="210" style="display:block;margin:6px auto" role="img" aria-label="Gráfico da carteira de investimentos">${seg}<text x="80" y="74" text-anchor="middle" font-size="10" fill="var(--mu)">Valor atual</text><text x="80" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="var(--tx)">${big}</text></svg>
+  <div class="two" style="margin-bottom:8px"><div class="res" style="margin:0;font-size:13px">Aplicado<br><b>${R(inv)}</b></div><div class="res" style="margin:0;font-size:13px">Lucro estimado<br><b class="${lucro>=0?'pos':'neg'}">${lucro>=0?'+':'−'}${R(Math.abs(lucro))}</b></div></div>
+  ${ts.map((x,i)=>`<button class="lgd" onclick="pickT(${i})"><i style="background:${PC[i%PC.length]}"></i><span>${esc(x[0])}</span><b>${R(x[1])}</b><small>${(x[1]/tot*100).toFixed(0)}%</small></button>`).join('')}
+  ${det}</div>`;
+}
+function posForm(id,pre){
+  const p=(S.inv||[]).find(x=>x.id==id)||pre||{};
+  $('#form').innerHTML=`<h2>${id?'Editar investimento':'Novo investimento'}</h2>
+  <label>Tipo</label><select id="pt" onchange="posRate()">${CT.map(t=>`<option${t==p.t?' selected':''}>${t}</option>`).join('')}</select>
+  <label>Nome (opcional)</label><input id="pn2" value="${esc(p.n||'')}" placeholder="Ex.: CDB do Banco X">
+  <div class="two"><div><label>Valor aplicado (R$)</label><input id="pv" type="number" inputmode="decimal" value="${p.v||''}"></div><div><label>Data da aplicação</label><input id="pd" type="date" value="${p.d||iso(new Date())}"></div></div>
+  <div class="two"><div><label>Rentabilidade ao ano (%)</label><input id="pr2" type="number" inputmode="decimal" step="0.1" value="${p.r==null?'':p.r}"></div><div><label>Valor atual (opcional)</label><input id="pc2" type="number" inputmode="decimal" value="${p.cur||''}"></div></div>
+  <small style="color:var(--mu);display:block;margin-top:8px">Sem o valor atual, o app estima pela rentabilidade e pela data.</small>
+  <button class="btn" style="margin-top:16px" onclick="savePos('${id||''}')">Salvar</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  if(!id)posRate();$('#sheet').classList.add('on');
+}
+function posRate(){const i=INV.find(x=>x.n==$('#pt').value);$('#pr2').value=i?(i.cdi!=null?+(i.r*i.cdi/100).toFixed(1):i.r):0}
+function savePos(id){
+  const v=+$('#pv').value;if(!(v>0)){alert('Digite o valor aplicado.');return}
+  const p={id:id||Date.now()+'',t:$('#pt').value,n:$('#pn2').value.trim(),v,d:$('#pd').value||iso(new Date()),r:+$('#pr2').value||0,cur:+$('#pc2').value||0};
+  S.inv=S.inv||[];const i=S.inv.findIndex(x=>x.id==id);if(i>=0)S.inv[i]=p;else S.inv.push(p);
+  if(posFrom){const c=(S.cm||[]).find(x=>x.id==posFrom);if(c)c.ap=true;posFrom=null}
+  save();closeForm();render();
+}
+function delPos(id){if(confirm('Apagar este investimento?')){S.inv=S.inv.filter(x=>x.id!=id);save();render()}}
+/* ===== COTAÇÕES DE TUDO DE UMA VEZ ===== */
+const QT={};let QREQ=0;
+const MQ=[['USD-BRL','Dólar','R$'],['EUR-BRL','Euro','R$'],['bitcoin','Bitcoin','R$'],['ethereum','Ethereum','R$']];
+function marketCard(){
+  return `<div class="card"><div class="mn"><h2 style="margin:0">Mercado agora</h2><button class="btn s g" onclick="refreshQ()" aria-label="Atualizar">↻</button></div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:10px">${MQ.map(x=>`<div style="flex:1 1 40%;min-width:0"><small style="color:var(--mu)">${x[1]}</small><br><span class="qv" data-c="${x[0]}" data-u="${x[2]}">…</span></div>`).join('')}</div></div>`;
+}
+const qfmt=(p,u)=>u+' '+p.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:p<1?4:2});
+function paintQ(){
+  document.querySelectorAll('.qv').forEach(el=>{
+    const q=QT[el.dataset.c];
+    el.innerHTML=q?`<b style="color:var(--tx)">${qfmt(q.p,el.dataset.u)}</b> <small class="${q.c>=0?'pos':'neg'}">${q.c>=0?'+':'−'}${Math.abs(q.c).toFixed(2).replace('.',',')}%</small>`:'<span style="color:var(--mu)">—</span>';
+  });
+}
+async function loadQuotes(k){
+  const m=MK[k],now=Date.now(),need=m.a.filter(a=>!(QT[a.c]&&now-QT[a.c].t<9e5));
+  if(!need.length)return '';
+  const ids=need.map(a=>a.c);
+  try{
+    if(m.p=='aw'){
+      const j=await J('https://economia.awesomeapi.com.br/json/last/'+ids.join(','));
+      need.forEach(a=>{const x=j[a.c.replace('-','')];if(x)QT[a.c]={p:+x.bid,c:+x.pctChange,t:now}});
+    }else if(m.p=='cg'){
+      const j=await J('https://api.coingecko.com/api/v3/simple/price?ids='+ids.join(',')+'&vs_currencies=brl&include_24hr_change=true');
+      need.forEach(a=>{const x=j[a.c];if(x&&x.brl!=null)QT[a.c]={p:x.brl,c:x.brl_24h_change||0,t:now}});
+    }else if(m.p=='br'){
+      const H=S.token?{Authorization:'Bearer '+S.token}:null,put=r=>{if(r&&r.regularMarketPrice!=null)QT[r.symbol]={p:r.regularMarketPrice,c:r.regularMarketChangePercent||0,t:now}};
+      try{const j=await J('https://brapi.dev/api/quote/'+ids.join(','),H);(j.results||[]).forEach(put)}catch(e){}
+      await Promise.all(need.filter(a=>!QT[a.c]).map(async a=>{try{const j=await J('https://brapi.dev/api/quote/'+a.c,H);put((j.results||[])[0])}catch(e){}}));
+    }else{
+      if(!S.av)return 'Configure a chave da Alpha Vantage em Configurações.';
+      await Promise.all(need.map(async a=>{try{const j=await J(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${a.c}&apikey=${S.av}`),g=j['Global Quote'];if(g&&g['05. price'])QT[a.c]={p:+g['05. price'],c:parseFloat(g['10. change percent'])||0,t:now}}catch(e){}}));
+    }
+  }catch(e){return 'Sem conexão com a fonte de cotações.'}
+  return need.some(a=>!QT[a.c])?'Alguns ativos não vieram. Confira as chaves em Configurações.':'';
+}
+async function quotesFor(keys){
+  const my=++QREQ;paintQ();
+  const msgs=await Promise.all(keys.map(loadQuotes));
+  if(my!=QREQ)return;
+  paintQ();const st=$('#qst'),m=msgs.find(x=>x);if(st)st.textContent=m||'Atualizado agora';
+}
+function refreshQ(){Object.keys(QT).forEach(k=>delete QT[k]);render()}
+function invGrid(){
+  return `<header><h1>Investimentos</h1></header>${carteira()}
+  ${marketCard()}
+  <div style="padding:6px 22px 0"><h2 style="margin:0">Explorar</h2></div>
+  <div class="grid">${TILES.map(t=>`<button class="tile" onclick="tileGo('${t[0]}')"><span>${t[1]}</span>${t[2]}</button>`).join('')}</div>`;
+}
+function invList(){
+  const m=MK[iv.k];
+  return `<header class="sub"><button class="back" onclick="go({v:'grid'})">←</button><h1>${m.n}</h1></header>
+  <div class="card"><div class="mn" style="margin-bottom:6px"><small id="qst" style="color:var(--mu)">Buscando cotações...</small><button class="btn s g" onclick="refreshQ()">↻ Atualizar tudo</button></div>${m.a.map((a,i)=>`<div class="item" onclick="openA(${i})"><div class="ic" style="border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);font-weight:700">${(a.s||a.c)[0].toUpperCase()}</div><div class="t"><b>${a.n}</b><small>${a.s||a.c.toUpperCase()}</small></div><span class="qv" data-c="${esc(a.c)}" data-u="${m.cur}" style="text-align:right;font-size:13px">…</span></div>`).join('')}</div>
+  ${m.p=='br'||m.p=='av'?`<div class="card"><h2>Outro código</h2><div class="two"><input id="cc" placeholder="Ex.: ${m.p=='av'?'META':'ITSA4'}" autocapitalize="characters"><button class="btn s" onclick="openC()">Ver</button></div></div>`:''}`;
+}
+function assetView(){
+  const a=iv.a;
+  return `<header class="sub"><button class="back" onclick="go({v:'list',k:'${iv.k}'})">←</button><h1>${a.n}</h1></header>
+  <div class="card"><div class="item" style="border:0"><div class="ic" style="border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);font-weight:700">${(a.s||a.c)[0].toUpperCase()}</div><div class="t"><b>${a.n}</b><small>${a.s||a.c.toUpperCase()}</small></div></div>
+  <div id="apr" style="font-size:34px;font-weight:700;margin-top:6px">...</div><div id="ach" style="font-weight:600;margin:4px 0 14px">&nbsp;</div>
+  <div id="chw" style="min-height:190px"></div>
+  <div class="pills">${PER.map(p=>`<button class="${p==iv.per?'on':''}" onclick="setPer('${p}')">${p}</button>`).join('')}</div>
+  <small style="color:var(--mu);display:block;margin-top:10px">Toque e arraste no gráfico para ver cada ponto. Dados de mercado podem ter atraso.</small></div>`;
+}
+const J=async(u,h)=>{const r=await fetch(u,h?{headers:h}:{});if(!r.ok)throw new Error('Não consegui buscar os dados ('+r.status+'). Confira o código e as chaves e tente de novo.');return r.json()};
+async function series(a,p,per){
+  const i=PER.indexOf(per);
+  if(p=='cg'){const d=[1,7,30,365,'max'][i],u=x=>`https://api.coingecko.com/api/v3/coins/${a.c}/market_chart?vs_currency=brl&days=${x}`;let j;try{j=await J(u(d))}catch(e){if(d!='max')throw e;j=await J(u(365))}return j.prices}
+  if(p=='aw'){const n=[2,7,30,365,1500][i];const j=await J(`https://economia.awesomeapi.com.br/json/daily/${a.c}/${n}`);return j.map(x=>[+x.timestamp*1000,+x.bid]).reverse()}
+  if(p=='br'){const q=[['1d','5m'],['5d','30m'],['1mo','1d'],['1y','1d'],['max','1mo']][i];const j=await J(`https://brapi.dev/api/quote/${a.c}?range=${q[0]}&interval=${q[1]}`,S.token?{Authorization:'Bearer '+S.token}:null);const r=j.results&&j.results[0];if(!r||!r.historicalDataPrice)throw new Error(j.message||'Sem dados para este período. Alguns ativos exigem o token da brapi, em Configurações > Investimentos: APIs.');return r.historicalDataPrice.filter(x=>x.close!=null).map(x=>[x.date*1000,x.close])}
+  if(!S.av)throw new Error('Configure a chave da Alpha Vantage na engrenagem, em Configurações > Investimentos: APIs.');
+  const fn=i==3?'TIME_SERIES_WEEKLY':i==4?'TIME_SERIES_MONTHLY':'TIME_SERIES_DAILY';
+  const j=await J(`https://www.alphavantage.co/query?function=${fn}&symbol=${a.c}&apikey=${S.av}`);
+  const k=Object.keys(j).find(x=>x.includes('Time Series'));
+  if(!k)throw new Error('A Alpha Vantage não respondeu. Pode ter passado o limite diário da chave grátis.');
+  const r=Object.entries(j[k]).map(e=>[new Date(e[0]).getTime(),+e[1]['4. close']]).reverse();
+  return [r.slice(-2),r.slice(-5),r.slice(-22),r.slice(-52),r][i];
+}
+async function loadAsset(){
+  const my=++req;$('#chw').innerHTML='<div class="empty">Carregando...</div>';
+  try{const pts=await series(iv.a,MK[iv.k].p,iv.per);if(my!=req)return;draw(pts,MK[iv.k].cur)}
+  catch(e){if(my!=req)return;$('#apr').textContent='';$('#chw').innerHTML=`<div class="alert">${e.message}</div>`}
+}
+function draw(pts,cur){
+  if(pts.length<2)throw new Error('Poucos dados neste período.');
+  const f=v=>cur+' '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:v<1?4:2});
+  const vs=pts.map(p=>p[1]),first=vs[0],n=vs.length-1,mn=Math.min(...vs),mx=Math.max(...vs);
+  const up=vs[n]>=first,col=up?'var(--ok)':'var(--bad)',W=340,H=190,P=10;
+  const x=i=>P+i*(W-2*P)/n,y=v=>28+(mx-v)/((mx-mn)||1)*(H-56);
+  const iM=vs.indexOf(mx),im=vs.indexOf(mn);
+  const lab=(i,v,dy)=>{const X=x(i);return `<text x="${X}" y="${y(v)+dy}" font-size="12" fill="var(--tx)" text-anchor="${X<45?'start':X>W-45?'end':'middle'}">${f(v)}</text>`};
+  const info=i=>{const c=vs[i]-first,p=c/first*100;$('#apr').textContent=f(vs[i]);$('#ach').innerHTML=`<span style="color:${vs[i]>=first?'var(--ok)':'var(--bad)'}">${c>=0?'↗ +':'↘ −'}${f(Math.abs(c))} (${p.toFixed(2).replace('.',',')}%)</span>`};
+  $('#chw').innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="touch-action:pan-y;display:block" role="img" aria-label="Gráfico de preço"><path d="${vs.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join('')}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>${lab(iM,mx,-8)}${lab(im,mn,18)}<circle id="dh" cx="${x(n)}" cy="${y(vs[n])}" r="9" fill="${col}" opacity=".2"/><circle id="dt" cx="${x(n)}" cy="${y(vs[n])}" r="5" fill="${col}"/></svg>`;
+  info(n);
+  const svg=$('#chw svg');
+  const mv=e=>{const r=svg.getBoundingClientRect(),i=Math.max(0,Math.min(n,Math.round(((e.clientX-r.left)/r.width*W-P)/(W-2*P)*n)));$('#dh').setAttribute('cx',x(i));$('#dh').setAttribute('cy',y(vs[i]));$('#dt').setAttribute('cx',x(i));$('#dt').setAttribute('cy',y(vs[i]));info(i)};
+  svg.onpointermove=mv;svg.onpointerdown=mv;svg.onpointerleave=()=>mv({clientX:1e6});
+}
+function simView(){
+  const gs=[...new Set(INV.map(i=>i.g))];
+  return `<header class="sub"><button class="back" onclick="go({v:'grid'})">←</button><h1>Simulador</h1></header>
+  <div class="card">
+  <label>Tipo de investimento</label><select id="iv" onchange="pick()">${gs.map(g=>`<optgroup label="${g}">${INV.map((i,k)=>i.g==g?`<option value="${k}"${i.n==iv.n?' selected':''}>${i.n}</option>`:'').join('')}</optgroup>`).join('')}</select>
+  <small id="idesc" style="color:var(--mu);display:block;margin-top:6px"></small>
+  <div class="two"><div><label>Valor inicial (R$)</label><input id="v0" type="number" inputmode="decimal" value="1000"></div><div><label>Aporte mensal (R$)</label><input id="ap" type="number" inputmode="decimal" value="200"></div></div>
+  <div class="two"><div id="bpc"><label>% do CDI</label><input id="pc" type="number" inputmode="decimal" value="100"></div><div id="bcdi"><label>CDI ao ano (%)</label><input id="cdi" type="number" inputmode="decimal" value="14" step="0.1"></div><div id="brt"><label>Rentabilidade ao ano (%)</label><input id="rt" type="number" inputmode="decimal" value="10" step="0.1"></div></div>
+  <label>Prazo (anos)</label><input id="yr" type="number" inputmode="numeric" value="5" min="1" max="40">
+  <button class="btn" style="margin-top:14px" onclick="sim()">Calcular</button><div id="simres"></div>
+  <small style="color:var(--mu);display:block;margin-top:8px">As taxas são estimativas que você pode editar e não garantem retorno. Valores brutos, antes do IR.</small></div>`;
+}
+function pick(){
+  const i=INV[+$('#iv').value];$('#idesc').textContent=i.d;
+  const c=i.cdi!=null;$('#bpc').style.display=$('#bcdi').style.display=c?'':'none';$('#brt').style.display=c?'none':'';
+  if(c)$('#pc').value=i.cdi;else $('#rt').value=i.r;
+}
+function chart(a,b){
+  const W=320,H=150,P=8,mx=Math.max(...a,1),n=a.length-1;
+  const x=i=>P+i*(W-2*P)/n,y=v=>H-P-(v/mx)*(H-2*P-10);
+  const l=z=>z.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Crescimento do investimento"><path d="${l(a)} L${x(n)} ${H-P} L${x(0)} ${H-P}Z" fill="var(--p)" opacity=".14"/><path d="${l(a)}" fill="none" stroke="var(--p)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="${l(b)}" fill="none" stroke="var(--mu)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+  <small style="color:var(--mu)">━ Total com juros &nbsp; ┅ Valor investido</small>`;
+}
+function sim(){
+  const i=INV[+$('#iv').value];
+  const v0=+$('#v0').value||0,ap=+$('#ap').value||0,y=Math.min(40,Math.max(1,Math.round(+$('#yr').value||1)));
+  const a=i.cdi!=null?(+$('#cdi').value||0)*(+$('#pc').value||0)/1e4:(+$('#rt').value||0)/100;
+  const m=Math.pow(1+a,1/12)-1;let t=v0;const tot=[v0],inv=[v0];
+  for(let k=1;k<=y*12;k++){t=t*(1+m)+ap;if(k%12==0){tot.push(t);inv.push(v0+ap*k)}}
+  const ti=v0+ap*y*12;
+  $('#simres').innerHTML=`<div class="res">Em <b>${y} anos</b> você terá <b>${R(t)}</b>.<br>Investido: ${R(ti)}<br>Lucro: <span class="pos">${R(t-ti)}</span></div><div style="margin-top:12px">${chart(tot,inv)}</div>`;
+}
+/* ===== ASSISTENTE (tela de chat) ===== */
+const SUG=[['📊','Quanto gastei este mês?'],['💡','Quanto posso investir?'],['🔔','Quais contas vencem em breve?'],['🎯','Como estão minhas metas?']];
+const msgH=c=>`<div class="msg ${c.r}">${esc(c.t).replace(/\n/g,'<br>')}</div>`;
+function ai(){
+  return `<div class="chatwrap"><div class="ctop"><button class="back" onclick="tab='home';render()" aria-label="Voltar">←</button><b>Assistente</b><button class="back" onclick="newChat()" aria-label="Nova conversa">＋</button></div>
+  <div class="chat" id="chat">${S.chat.length?S.chat.map(msgH).join(''):'<div class="hello">FREIVORA<br><small>Seu assistente financeiro</small></div>'}</div>
+  ${S.chat.length?'':`<div id="sug">${SUG.map(x=>`<button onclick="sendQ('${x[1]}')"><span>${x[0]}</span>${x[1]}</button>`).join('')}</div>`}
+  <div class="cin"><input id="q" placeholder="Perguntar ao FREIVORA..." enterkeyhint="send" autocomplete="off" onkeydown="if(event.key=='Enter')ask()"><button id="mic" onclick="mic()" aria-label="Falar">🎤</button><button class="sendb" onclick="ask()" aria-label="Enviar">➤</button></div></div>`;
+}
+/* ETAPA 2: troque localAnswer() por uma chamada ao seu servidor (que guarda a chave da IA), enviando S.tx, S.goals e a pergunta. */
+function localAnswer(q){
+  q=q.toLowerCase();const c=byCat();
+  if(q.includes('comiss')){
+    const mk=month(),a=(S.cm||[]).filter(c=>c.d.startsWith(mk));
+    if(!a.length)return 'Você ainda não cadastrou comissões neste mês. Use o botão ＋ e escolha Nova comissão.';
+    const t=a.reduce((x,c)=>x+c.v,0),r=a.reduce((x,c)=>x+c.res,0),i=a.reduce((x,c)=>x+c.inv,0);
+    return `Neste mês você recebeu ${R(t)} em comissões. Separado: ${R(r+i)} (reserva ${R(r)} e investimentos ${R(i)}). Livre: ${R(t-r-i)}.`;
+  }
+  if(q.includes('meta')){
+    if(!S.goals.length)return 'Você ainda não criou metas. Abra a aba Metas e toque em Nova meta.';
+    return S.goals.map(x=>{const r=Math.max(0,x.target-x.saved);return `${x.e||'🎯'} ${x.name}: ${Math.round(x.saved/x.target*100)}% (${R(x.saved)} de ${R(x.target)}). ${r>0?'Faltam '+R(r)+(x.monthly>0?', cerca de '+Math.ceil(r/x.monthly)+' meses guardando '+R(x.monthly)+' por mês.':'.'):'Meta alcançada!'}`}).join('\n');
+  }
+  for(const k in CAT){if(q.includes(k.toLowerCase()))return `Neste mês você gastou ${R(c[k]||0)} com ${k}.`}
+  if(q.includes('sobr')||q.includes('saldo')||q.includes('livre')){const m=mesCalc();return `Neste mês: receitas ${R(m.rec)}, gastos ${R(m.gast)}, a pagar ${R(m.pagar)} e separado ${R(m.sep)}. Valor livre: ${R(m.livre)}.`}
+  if(q.includes('invest'))return `Você pode investir cerca de ${R(Math.max(0,mesCalc().livre))} sem atrasar contas, além do que já foi separado.`;
+  if(q.includes('conta')||q.includes('pagar')||q.includes('venc'))return pend().length?`Faltam ${R(sum(pend()))} em contas. A próxima é ${pend()[0].name}, dia ${pend()[0].date.split('-').reverse().join('/')}.`:'Nenhuma conta pendente.';
+  const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];
+  return `Gastos do mês: ${R(sum(outs().filter(t=>t.date.startsWith(month()))))}.`+(top?` O maior foi ${top[0]}, com ${R(top[1])}.`:' Ainda não há gastos lançados.');
+}
+function ask(){
+  const i=$('#q'),q=i.value.trim();if(!q)return;i.value='';
+  S.chat.push({r:'me',t:q});
+  ['#sug','.hello'].forEach(x=>{const e=$(x);if(e)e.remove()});
+  const c=$('#chat');c.insertAdjacentHTML('beforeend',msgH({r:'me',t:q})+'<div class="msg ia" id="typ">•••</div>');c.scrollTop=c.scrollHeight;
+  setTimeout(()=>{const a=localAnswer(q);S.chat.push({r:'ia',t:a});save();const t=$('#typ');if(t)t.outerHTML=msgH({r:'ia',t:a});c.scrollTop=c.scrollHeight},600);
+}
+const sendQ=q=>{$('#q').value=q;ask()};
+const newChat=()=>{S.chat=[];save();render()};
+function mic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Seu navegador não tem ditado por voz. Use o microfone do teclado.');return}
+  try{const r=new SR();r.lang='pt-BR';r.onresult=e=>{$('#q').value=e.results[0][0].transcript;ask()};r.onend=()=>{const m=$('#mic');if(m)m.classList.remove('on')};$('#mic').classList.add('on');r.start()}catch(e){}
+}
+
+/* ===== METAS ===== */
+const GE={'Reserva de emergência':'🛟','Viagem':'✈️','Carro':'🚗','Casa':'🏠','Estudos':'🎓','Outro':'🎯'};
+let gm='monthly',ge='🎯';
+const mfmt=n=>{const d=new Date();d.setMonth(d.getMonth()+Math.ceil(n));return d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})};
+function ring(p){
+  const r=34,c=2*Math.PI*r;
+  return `<svg viewBox="0 0 80 80" width="76" height="76" style="flex:none" aria-hidden="true"><circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--bar)" stroke-width="8"/><circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--p)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 40 40)"/><text x="40" y="45" text-anchor="middle" font-size="16" font-weight="700" fill="var(--tx)">${Math.round(p)}%</text></svg>`;
+}
+function goals(){
+  return `<header><div><small style="letter-spacing:.32em;font-weight:600">FREIVORA</small><h1>Metas</h1></div></header>
+  ${S.goals.length?S.goals.map(goalCard).join(''):'<div class="card"><div class="empty">Nenhuma meta ainda. Crie a primeira, como uma reserva de emergência.</div></div>'}
+  <div style="padding:0 16px"><button class="btn" onclick="goalForm()">＋ Nova meta</button></div>`;
+}
+function goalCard(x){
+  const rest=Math.max(0,x.target-x.saved),p=Math.min(100,x.saved/x.target*100),n=x.monthly>0?Math.ceil(rest/x.monthly):0;
+  return `<div class="card"><div style="display:flex;gap:14px;align-items:center">${ring(p)}<div style="flex:1;min-width:0"><b style="font-size:16px">${x.e||'🎯'} ${esc(x.name)}</b>
+  <div style="color:var(--mu);font-size:13px;margin-top:2px">${R(x.saved)} de ${R(x.target)}</div>
+  <div style="font-size:14px;margin-top:6px">${rest<=0?'✅ Meta alcançada!':`Faltam <b>${R(rest)}</b>`}</div></div></div>
+  ${rest>0&&x.monthly>0?`<div class="res">Guardando <b>${R(x.monthly)}</b> por mês, você chega lá em <b>${n} ${n==1?'mês':'meses'}</b> (${mfmt(n)}).</div>`:''}
+  <div class="two" style="margin-top:12px"><button class="btn s" style="flex:1" onclick="depForm('${x.id}')">Guardar valor</button><button class="btn s g" onclick="goalForm('${x.id}')">Editar</button><button class="btn s g" onclick="delGoal('${x.id}')" aria-label="Apagar">🗑</button></div></div>`;
+}
+function goalForm(id){
+  const x=S.goals.find(g=>g.id==id)||{};gm=x.mode||'monthly';ge=x.e||'🎯';
+  $('#form').innerHTML=`<h2>${id?'Editar meta':'Nova meta'}</h2>
+  <label>Nome da meta</label><input id="gn" value="${esc(x.name||'')}" placeholder="Ex.: Reserva de emergência">
+  <div class="pills" style="margin-top:8px">${Object.keys(GE).map(n=>`<button type="button" onclick="chip('${n}')">${GE[n]} ${n}</button>`).join('')}</div>
+  <div class="two"><div><label>Valor da meta (R$)</label><input id="gt" type="number" inputmode="decimal" value="${x.target||''}" oninput="gprev()"></div><div><label>Já guardei (R$)</label><input id="gs" type="number" inputmode="decimal" value="${x.saved||0}" oninput="gprev()"></div></div>
+  <div class="seg" style="margin-top:14px"><button id="gm1" onclick="setGm('monthly')">Valor por mês</button><button id="gm2" onclick="setGm('months')">Prazo em meses</button></div>
+  <label id="gl"></label><input id="gv" type="number" inputmode="decimal" value="${(gm=='months'?x.months:x.monthly)||''}" oninput="gprev()">
+  <div class="res" id="gp">Preencha os valores para calcular.</div>
+  <button class="btn" style="margin-top:16px" onclick="saveGoal('${id||''}')">Salvar meta</button>
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  setGm(gm);$('#sheet').classList.add('on');
+}
+function chip(n){ge=GE[n];if(n!='Outro')$('#gn').value=n;else $('#gn').focus()}
+function setGm(m){
+  gm=m;$('#gm1').className=m=='monthly'?'on':'';$('#gm2').className=m=='months'?'on':'';
+  $('#gl').textContent=m=='monthly'?'Quanto posso guardar por mês (R$)':'Em quantos meses quero chegar lá';gprev();
+}
+function gcalc(){
+  const t=+$('#gt').value||0,sv=+$('#gs').value||0,v=+$('#gv').value||0,rest=Math.max(0,t-sv);
+  if(gm=='monthly')return {t,sv,v,rest,monthly:v,months:v>0?Math.ceil(rest/v):0};
+  const m=Math.max(1,Math.ceil(v));return {t,sv,v,rest,months:m,monthly:v>0?rest/m:0};
+}
+function gprev(){
+  const c=gcalc(),el=$('#gp');
+  if(!(c.v>0)||!(c.t>0)){el.textContent='Preencha os valores para calcular.';return}
+  if(c.rest<=0){el.textContent='Com o valor já guardado, a meta está alcançada.';return}
+  el.innerHTML=gm=='monthly'?`Guardando <b>${R(c.monthly)}</b> por mês, você chega lá em <b>${c.months} meses</b> (${mfmt(c.months)}).`:`Para chegar lá em <b>${c.months} meses</b> (${mfmt(c.months)}), guarde <b>${R(c.monthly)}</b> por mês.`;
+}
+function saveGoal(id){
+  const name=$('#gn').value.trim(),c=gcalc();
+  if(!name||!(c.t>0)||!(c.v>0)){alert('Preencha o nome, o valor da meta e o valor por mês ou o prazo.');return}
+  const g={id:id||Date.now()+'',name,e:ge,target:c.t,saved:c.sv,monthly:c.monthly,months:c.months,mode:gm};
+  const i=S.goals.findIndex(x=>x.id==id);if(i>=0)S.goals[i]=g;else S.goals.push(g);
+  save();closeForm();render();
+}
+function depForm(id){
+  const x=S.goals.find(g=>g.id==id);if(!x)return;
+  $('#form').innerHTML=`<h2>Guardar na meta</h2><small style="color:var(--mu)">${esc(x.name)}</small>
+  <label>Quanto você guardou agora (R$)</label><input id="dv" type="number" inputmode="decimal">
+  <button class="btn" style="margin-top:16px" onclick="addDep('${id}')">Guardar</button>
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function addDep(id){const v=+$('#dv').value,x=S.goals.find(g=>g.id==id);if(!x||!(v>0)){alert('Digite um valor maior que zero.');return}x.saved+=v;save();closeForm();render()}
+function delGoal(id){if(confirm('Apagar esta meta?')){S.goals=S.goals.filter(g=>g.id!=id);save();render()}}
+
+/* ===== LANÇAMENTOS ===== */
+let ftype='out';
+function openForm(){
+  $('#form').innerHTML=`<div class="seg"><button id="bo" class="on" onclick="setT('out')">Despesa</button><button id="bi" onclick="setT('in')">Receita</button></div>
+  <label>Nome</label><input id="fn" placeholder="Ex.: iFood, Netflix, Salário">
+  <div class="two"><div><label>Valor (R$)</label><input id="fv" type="number" inputmode="decimal"></div><div><label>Data</label><input id="fd" type="date" value="${iso(new Date())}"></div></div>
+  <label>Categoria</label><select id="fc">${Object.keys(CAT).map(c=>`<option>${c}</option>`).join('')}</select>
+  <label id="lb" style="display:flex;gap:8px;align-items:center;color:var(--tx);font-size:15px"><input id="fb" type="checkbox" style="width:22px;height:22px">É uma conta a pagar (a data é o vencimento)</label>
+  <button class="btn" style="margin-top:16px" onclick="addTx()">Salvar</button>
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');ftype='out';
+}
+function setT(t){ftype=t;$('#bo').className=t=='out'?'on':'';$('#bi').className=t=='in'?'on':'';$('#lb').style.display=t=='out'?'flex':'none'}
+function closeForm(){$('#sheet').classList.remove('on');posFrom=null}
+function addTx(){
+  const name=$('#fn').value.trim(),val=+$('#fv').value;
+  if(!name||!(val>0)){alert('Preencha o nome e um valor maior que zero.');return}
+  const bill=ftype=='out'&&$('#fb').checked;
+  S.tx.push({id:Date.now()+'',type:ftype,name,val,date:$('#fd').value||iso(new Date()),cat:ftype=='in'?'Salário':$('#fc').value,...(bill?{paid:false}:{})});
+  save();closeForm();render();
+}
+function pay(id){const t=S.tx.find(x=>x.id==id);if(t){t.paid=true;t.date=iso(new Date());save();render()}}
+
+/* ===== CONTA (login local) ===== */
+const PH=['Vamos mudar o mundo hoje.','Dinheiro bem cuidado vira liberdade.','Pequenos passos, grandes resultados.','Hoje eu escolho o meu futuro.','Disciplina hoje, tranquilidade amanhã.','Quem planeja, conquista.','Cada real guardado é um passo à frente.','Foco no objetivo, paciência no caminho.','Seu futuro começa com a decisão de hoje.','Constância vale mais que pressa.','Controle hoje, liberdade amanhã.','Pense grande, comece pequeno.','Grandes sonhos começam com um bom planejamento.','Faça o seu dinheiro trabalhar por você.','Um dia de cada vez, uma meta de cada vez.','Quem cuida do hoje constrói o amanhã.','A sua melhor versão começa agora.','Resultados vêm de hábitos, não de sorte.','Respire, planeje e avance.','Hoje é um ótimo dia para investir em você.'];
+let WP='';
+const phraseMode=()=>S.phraseMode||(S.phrase?'fixed':'random');
+const curPhrase=()=>phraseMode()=='fixed'?(S.phrase||PH[0]):(WP||PH[0]);
+const IC={
+cal:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+cloud:'<path d="M7 18a4.5 4.5 0 1 1 1-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 18 18z"/>',
+adduser:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/>',
+login:'<path d="M15 4h4v16h-4M10 8l4 4-4 4M14 12H3"/>',
+mail:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/>',
+key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',
+spark:'<path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l4 4M15 15l4 4M19 5l-4 4M9 15l-4 4"/>',
+mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+lines:'<path d="M4 6h16M4 12h16M4 18h10"/>',
+trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>',
+plug:'<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/>',
+chart:'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+pin:'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+lock:'<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+out:'<path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/>',
+gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+card:'<rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18"/>'};
+const ico=(k,z)=>`<svg viewBox="0 0 24 24" width="${z||26}" height="${z||26}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+function widget(){
+  return `<div class="wg"><button class="wgi" onclick="tab='ai';render();scrollTo(0,0)">${ico('spark',30)}<span>Como posso ajudar, ${esc(fn())}?</span></button>
+  <div class="wgb"><button onclick="tab='ai';render();setTimeout(mic,300)" aria-label="Falar com o assistente">${ico('mic')}</button><button onclick="openForm()" aria-label="Lançar gasto ou receita">${ico('plus')}</button><button onclick="tab='goals';render();scrollTo(0,0)" aria-label="Metas">${ico('target')}</button><button onclick="tab='cards';render();scrollTo(0,0)" aria-label="Cartões">${ico('card')}</button></div></div>`;
+}
+let pm='random';
+function phraseForm(){
+  pm=phraseMode();
+  $('#form').innerHTML=`<h2>Frase do dia</h2><small style="color:var(--mu)">Aparece na abertura e no Início.</small>
+  <div class="seg" style="margin-top:12px"><button id="pm1" onclick="setPm('random')">Aleatória</button><button id="pm2" onclick="setPm('fixed')">Escolher a minha</button></div>
+  <div id="pbox"></div>
+  <button class="btn" style="margin-top:16px" onclick="savePhrase()">Salvar</button>
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  setPm(pm);$('#sheet').classList.add('on');
+}
+function setPm(m){
+  pm=m;$('#pm1').className=m=='random'?'on':'';$('#pm2').className=m=='fixed'?'on':'';
+  $('#pbox').innerHTML=m=='random'?'<p style="color:var(--mu);font-size:14px;margin-top:12px">Uma frase diferente aparece toda vez que você abre o app. Temos 20 sugestões motivacionais para inspirar o seu dia.</p>':`<label>Sua frase</label><input id="ph" maxlength="80" value="${esc(S.phrase||PH[0])}"><div style="margin-top:8px;max-height:34vh;overflow:auto">${PH.map((p,i)=>`<button class="btn g" style="margin-top:6px;text-align:left;font-weight:500;font-size:14px;padding:10px 14px" onclick="$('#ph').value=PH[${i}]">${p}</button>`).join('')}</div>`;
+}
+function savePhrase(){S.phraseMode=pm;if(pm=='fixed')S.phrase=($('#ph').value||'').trim()||PH[0];save();closeForm();render()}
+function acctCard(){
+  return `<div class="card"><div class="mn"><div><b>${esc(nm())}</b><br><small style="color:var(--mu)">@${esc(AC.cur)}</small></div><button class="btn s g" onclick="logout()">Sair</button></div><small style="color:var(--mu);display:block;margin-top:10px">Seus dados ficam salvos só neste aparelho.</small></div>`;
+}
+async function hash(p,salt){
+  try{
+    const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(p),'PBKDF2',false,['deriveBits']);
+    const b=await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:150000,hash:'SHA-256'},k,256);
+    return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }catch(e){
+    let h1=0xdeadbeef,h2=0x41c6ce57;const t=salt+p;
+    for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}
+    h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+    h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+    return 'f'+(4294967296*(2097151&h2)+(h1>>>0)).toString(16);
+  }
+}
+const rnd=()=>{try{return [...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return Math.random().toString(16).slice(2)+Date.now()}};
+let amode='in';
+function startUI(){
+  $('#auth').innerHTML=`<div class="box st">
+  <svg viewBox="280 70 480 310" width="92" style="display:block;margin:0 auto 6px" aria-hidden="true"><defs><linearGradient id="sv3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8E8E8"/><stop offset=".4" stop-color="#C0C0C0"/><stop offset=".65" stop-color="#808080"/><stop offset=".88" stop-color="#E8E8E8"/><stop offset="1" stop-color="#A8A8A8"/></linearGradient></defs><g fill="url(#sv3)">${MP.map(d=>`<path d="${d}"/>`).join('')}</g></svg>
+  <h1>FREIVORA</h1><p class="sub">Seu dinheiro. Suas escolhas. Seu futuro.</p>
+  <button class="ob" onclick="oauth('google')">${GIC}<span>Continuar com Google</span></button>
+  <button class="ob" onclick="oauth('apple')">${AIC}<span>Continuar com Apple</span></button>
+  <div id="aerr" style="color:var(--bad);font-size:14px;min-height:20px;margin:8px 0 0"></div>
+  <div class="rb"><div><button class="rnd" onclick="amode='up';authUI()" aria-label="Cadastrar">${ico('adduser',24)}</button><small>Cadastrar</small></div><div><button class="rnd" onclick="amode='in';authUI()" aria-label="Entrar">${ico('login',24)}</button><small>Entrar</small></div></div>
+  <button class="wlink" onclick="cfgForm()">${cloudOn()?'Nuvem configurada · alterar':'Configurar conta na nuvem'}</button></div>`;
+}
+function authUI(){
+  if(amode=='rec')return recUI();
+  if(amode=='newpw')return newPwUI();
+  if(amode=='start')return startUI();
+  const up=amode=='up',cl=cloudOn();
+  $('#auth').innerHTML=`<div class="box"><div style="margin-bottom:12px"><button class="back" onclick="amode='start';authUI()" aria-label="Voltar">←</button></div>
+  <h1>FREIVORA</h1><p class="sub">${up?'Crie sua conta para salvar seus dados':'Entre na sua conta'}</p>
+  ${up?'<label>Seu nome</label><input id="an" autocomplete="name" placeholder="Como quer ser chamado">':''}
+  ${up||cl?'<label>E-mail'+(up?' (para recuperar a senha)':'')+'</label><input id="ae" type="email" autocapitalize="none" autocomplete="email" placeholder="voce@email.com">':''}
+  ${cl?'':'<label>Usuário</label><input id="au" autocapitalize="none" autocomplete="username" placeholder="ex.: freitas">'}
+  <label>Senha</label><input id="ap2" type="password" autocomplete="${up?'new-password':'current-password'}" placeholder="mínimo 6 caracteres">
+  ${up?'<label>Repetir senha</label><input id="ap3" type="password" autocomplete="new-password">':''}
+  <div id="aerr" style="color:var(--bad);font-size:14px;min-height:20px;margin:10px 0 4px"></div>
+  <button class="btn" onclick="doAuth()">${up?'Criar conta':'Entrar'}</button>
+  ${up?'':'<button class="btn g" style="margin-top:10px" onclick="amode=\'rec\';authUI()">Esqueci minha senha</button>'}
+  <button class="wlink" onclick="amode='${up?'in':'up'}';authUI()">${up?'Já tenho conta · Entrar':'Não tenho conta · Cadastrar'}</button>
+  <small style="color:var(--mu);display:block;text-align:center;margin-top:14px">${cl?'Conta na nuvem: seus dados ficam no seu banco de dados e sincronizam entre aparelhos.':'Seus dados ficam salvos só neste aparelho. Se esquecer a senha, não há como recuperar.'}</small></div>`;
+}
+async function doAuth(){
+  if(cloudOn())return cloudAuth();
+  const u=$('#au').value.trim().toLowerCase(),p=$('#ap2').value,er=m=>{$('#aerr').textContent=m};
+  try{
+    if(amode=='up'){
+      const name=$('#an').value.trim(),email=$('#ae').value.trim().toLowerCase();
+      if(!name)return er('Digite seu nome.');
+      if(!/^\S+@\S+\.\S+$/.test(email))return er('Digite um e-mail válido.');
+      if(!/^[a-z0-9._-]{3,20}$/.test(u))return er('Usuário: 3 a 20 letras minúsculas, números, ponto, hífen ou _.');
+      if(p.length<6)return er('A senha precisa ter pelo menos 6 caracteres.');
+      if(p!==$('#ap3').value)return er('As senhas não são iguais.');
+      if(AC.users[u])return er('Esse usuário já existe. Escolha outro ou entre.');
+      const salt=rnd();
+      const first=!Object.keys(AC.users).length,legacy=localStorage.getItem('fin_v1');
+      const code=newCode();
+      AC.users[u]={name,email,salt,hash:await hash(p,salt),rc:await hash(code.replace(/-/g,''),salt)};
+      if(first&&legacy)localStorage.setItem('fin_u_'+u,legacy);
+      AC.cur=u;saveAC();enter(u);codeSheet(code);
+    }else{
+      const x=AC.users[u];
+      if(!x||await hash(p,x.salt)!==x.hash)return er('Usuário ou senha incorretos.');
+      AC.cur=u;saveAC();enter(u);
+    }
+  }catch(e){er('Não consegui concluir. Tente de novo.')}
+}
+function enter(u){KEY='fin_u_'+u;S=load(KEY);$('#auth').classList.remove('on');tab='home';iv={v:'grid'};sv='main';applyTheme();render();scrollTo(0,0);showWelcome()}
+async function logout(){stopWelcome();if(CL&&SB){try{await SB.auth.signOut()}catch(e){}}CL=null;AC.cur='';saveAC();KEY=null;S=DEF();tab='home';applyTheme();bootAuth()}
+async function bootAuth(){
+  if(cloudOn()){
+    try{await needSB();const {data}=await SB.auth.getSession();if(data.session){enterCloud(data.session.user);return}}catch(e){}
+    amode='start';authUI();$('#auth').classList.add('on');return;
+  }
+  if(AC.cur&&AC.users[AC.cur]){enter(AC.cur);return}
+  amode='start';authUI();$('#auth').classList.add('on');
+}
+$('#auth').onkeydown=e=>{if(e.key=='Enter')doAuth()};
+/* ===== AGENDA ===== */
+const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const MS=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+let am=new Date().getMonth(),ay=new Date().getFullYear(),asel=iso(new Date());
+const agOn=d=>(S.ag||[]).filter(e=>e.d==d).sort((a,b)=>(a.t||'99')<(b.t||'99')?-1:1);
+const dnum=k=>+k.slice(8),dmon=k=>MS[+k.slice(5,7)-1];
+const cap=t=>t[0].toUpperCase()+t.slice(1);
+const dlong=k=>cap(new Date(k+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}));
+function relDay(k){
+  const t=iso(new Date()),n=new Date();n.setDate(n.getDate()+1);
+  if(k==t)return 'Hoje';if(k==iso(n))return 'Amanhã';
+  return cap(new Date(k+'T12:00').toLocaleDateString('pt-BR',{weekday:'short',day:'numeric',month:'short'}).replace('.',''));
+}
+const evRow=e=>`<div class="item"><div class="dt"><b>${dnum(e.d)}</b><small>${dmon(e.d)}</small></div><div class="t"><b>${esc(e.n)}</b><small>${e.t?e.t+' · ':''}${esc(e.o||'')||'Sem observação'}</small></div><button class="btn s g" onclick="agForm('${e.id}')" aria-label="Editar">✎</button><button class="btn s g" onclick="agDel('${e.id}')" aria-label="Apagar">🗑</button></div>`;
+function agMove(n){am+=n;if(am<0){am=11;ay--}if(am>11){am=0;ay++}render()}
+function agenda(){
+  const start=new Date(ay,am,1).getDay(),days=new Date(ay,am+1,0).getDate(),today=iso(new Date());
+  let cells='';for(let i=0;i<start;i++)cells+='<i></i>';
+  for(let d=1;d<=days;d++){
+    const k=`${ay}-${String(am+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    cells+=`<button class="cd${k==today?' td':''}${k==asel?' sl':''}" onclick="asel='${k}';render()" aria-label="${d} de ${MES[am]}">${d}${agOn(k).length?'<u></u>':''}</button>`;
+  }
+  const list=agOn(asel);
+  return `<header class="sub"><button class="back" onclick="tab='home';render()" aria-label="Voltar">←</button><h1>Agenda</h1></header>
+  <div class="card"><div class="mn"><button class="back" onclick="agMove(-1)" aria-label="Mês anterior">‹</button><b>${cap(MES[am])} ${ay}</b><button class="back" onclick="agMove(1)" aria-label="Próximo mês">›</button></div>
+  <div class="cal">${['D','S','T','Q','Q','S','S'].map(x=>`<span>${x}</span>`).join('')}${cells}</div></div>
+  <div class="card"><div class="mn"><h2 style="margin:0">${dlong(asel)}</h2><button class="btn s" onclick="agForm('',asel)">＋ Novo</button></div>
+  <div style="margin-top:8px">${list.length?list.map(evRow).join(''):'<div class="empty">Nenhum compromisso neste dia.</div>'}</div></div>`;
+}
+function agForm(id,date){
+  const e=(S.ag||[]).find(x=>x.id==id)||{};
+  $('#form').innerHTML=`<h2>${id?'Editar compromisso':'Novo compromisso'}</h2>
+  <label>Título</label><input id="gt1" value="${esc(e.n||'')}" placeholder="Ex.: Reunião, dentista, pagar fornecedor">
+  <div class="two"><div><label>Data</label><input id="gd" type="date" value="${e.d||date||iso(new Date())}"></div><div><label>Hora (opcional)</label><input id="gh" type="time" value="${e.t||''}"></div></div>
+  <label>Observação (opcional)</label><input id="go" value="${esc(e.o||'')}" placeholder="Local, detalhes...">
+  <button class="btn" style="margin-top:16px" onclick="agSave('${id||''}')">Salvar</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function agSave(id){
+  const n=$('#gt1').value.trim(),d=$('#gd').value;
+  if(!n||!d){alert('Preencha o título e a data.');return}
+  const e={id:id||Date.now()+'',n,d,t:$('#gh').value,o:$('#go').value.trim()};
+  S.ag=S.ag||[];const i=S.ag.findIndex(x=>x.id==id);if(i>=0)S.ag[i]=e;else S.ag.push(e);
+  asel=d;am=+d.slice(5,7)-1;ay=+d.slice(0,4);save();closeForm();render();
+}
+function agDel(id){if(confirm('Apagar este compromisso?')){S.ag=S.ag.filter(x=>x.id!=id);save();render()}}
+function agWidget(){
+  const t=iso(new Date());
+  const strip=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()+i);const k=iso(d);return `<div class="wd${k==t?' on':''}"><small>${['DOM','SEG','TER','QUA','QUI','SEX','SÁB'][d.getDay()]}</small><b>${d.getDate()}</b><u class="${agOn(k).length?'':'z'}"></u></div>`}).join('');
+  const up=(S.ag||[]).filter(e=>e.d>=t).sort((a,b)=>(a.d+(a.t||'99'))<(b.d+(b.t||'99'))?-1:1).slice(0,4);
+  return `<div class="wag"><div class="wagh">Compromissos</div><div class="wstrip">${strip}</div>${up.length?up.map(e=>`<div class="wev"><div class="dt"><b>${dnum(e.d)}</b><small>${dmon(e.d)}</small></div><div><b>${esc(e.n)}</b><small>${relDay(e.d)}${e.t?' · '+e.t:''}</small></div></div>`).join(''):'<div class="wnone">Nenhum compromisso marcado.</div>'}</div>`;
+}
+/* ===== COMISSÃO ===== */
+let cmd='res',posFrom=null;
+const kfmt=v=>v>=1000?(v/1000).toFixed(1).replace('.',',').replace(',0','')+' mil':String(Math.round(v));
+const cmCalc=(v,pct,d,sp)=>{const sep=v*pct/100,res=d=='res'?sep:d=='inv'?0:sep*sp/100;return {sep,res,inv:sep-res,liv:v-sep}};
+const cmPct=()=>S.cmPct==null?70:S.cmPct;
+const cmRow=c=>`<div class="item"><div class="dt"><b>${dnum(c.d)}</b><small>${dmon(c.d)}</small></div><div class="t"><b>${R(c.v)}${c.o?' · '+esc(c.o):''}</b><small>Reserva ${R(c.res)} · Investir ${R(c.inv)} · Livre ${R(c.liv)}</small>${c.inv>0&&!c.ap?`<button class="lk" onclick="cmApply('${c.id}')">Aplicar em investimento →</button>`:''}</div><button class="btn s g" onclick="cmForm('${c.id}')" aria-label="Editar">✎</button><button class="btn s g" onclick="cmDel('${c.id}')" aria-label="Apagar">🗑</button></div>`;
+function comissao(){
+  const L=(S.cm||[]).slice().sort((a,b)=>a.d<b.d?1:-1),mk=month(),pct=cmPct();
+  const sm=(a,f)=>a.reduce((t,c)=>t+c[f],0),mo=L.filter(c=>c.d.startsWith(mk));
+  const months=[...Array(6)].map((_,i)=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-5+i);return iso(d).slice(0,7)});
+  const vals=months.map(m=>sm(L.filter(c=>c.d.startsWith(m)),'v')),mx=Math.max(...vals,1),nz=vals.filter(x=>x>0);
+  const avg=nz.length?nz.reduce((a,b)=>a+b,0)/nz.length:0;
+  const hasRes=(S.goals||[]).some(g=>/reserva/i.test(g.name));
+  const dl={res:'Reserva de emergência',inv:'Investimentos',split:'Dividir ('+(S.cmSplit==null?50:S.cmSplit)+'% reserva)'}[S.cmDest||'res'];
+  const bars=months.map((m,i)=>`<div><small style="display:block;font-size:10px;color:var(--tx);margin-bottom:3px">${vals[i]?kfmt(vals[i]):''}</small><i class="${m==mk?'hi':''}" style="height:${Math.max(4,vals[i]/mx*84)}px"></i>${cap(MS[+m.slice(5)-1].toLowerCase())}</div>`).join('');
+  return `<header><div><small style="letter-spacing:.32em;font-weight:600">FREIVORA</small><h1>Comissão</h1></div></header>
+  <div class="hero"><small>Recebido em ${MES[new Date().getMonth()]}</small><div class="big">${R(sm(mo,'v'))}</div>
+  <div class="row"><div>Separado (${pct}%)<b>${R(sm(mo,'res')+sm(mo,'inv'))}</b></div><div>Livre<b>${R(sm(mo,'liv'))}</b></div><div>Reserva<b>${R(sm(mo,'res'))}</b></div><div>Investir<b>${R(sm(mo,'inv'))}</b></div></div></div>
+  <div style="padding:0 16px"><button class="btn" onclick="cmForm()">＋ Nova comissão</button></div>
+  <div class="card"><div class="mn"><div><b>Regra: ${pct}% de cada comissão</b><br><small style="color:var(--mu)">Destino padrão: ${dl}</small></div><button class="btn s g" onclick="cmRule()">Alterar</button></div>
+  ${hasRes?'':'<div class="alert" style="margin:12px 0 0">Crie uma meta com o nome "Reserva de emergência" para a parte da reserva ser somada nela sozinha.</div>'}</div>
+  <div class="card"><h2>Últimos 6 meses</h2><div class="bars" style="height:130px">${bars}</div><small style="color:var(--mu);display:block;margin-top:10px">${avg?'Média dos meses com comissão: <b style="color:var(--tx)">'+R(avg)+'</b>. O valor varia, mas a regra se repete.':'Cadastre a primeira comissão para ver a evolução.'}</small></div>
+  <div class="card"><h2>Histórico</h2>${L.length?L.map(cmRow).join(''):'<div class="empty">Nenhuma comissão cadastrada.</div>'}</div>`;
+}
+function cmForm(id){
+  const c=(S.cm||[]).find(x=>x.id==id)||{};cmd=c.dest||S.cmDest||'res';
+  $('#form').innerHTML=`<h2>${id?'Editar comissão':'Nova comissão'}</h2>
+  <div class="two"><div><label>Valor recebido (R$)</label><input id="cv" type="number" inputmode="decimal" value="${c.v||''}" oninput="cmPrev()"></div><div><label>Data</label><input id="cdt" type="date" value="${c.d||iso(new Date())}"></div></div>
+  <label>Origem (opcional)</label><input id="co" value="${esc(c.o||'')}" placeholder="Ex.: Hotmart, Kiwify, cliente">
+  <label>Para onde vai o valor separado</label>
+  <div class="seg"><button id="cd1" onclick="setCmd('res')">Reserva</button><button id="cd2" onclick="setCmd('inv')">Investir</button><button id="cd3" onclick="setCmd('split')">Dividir</button></div>
+  <div id="csp" style="display:none"><label>% do separado para a reserva</label><input id="cs" type="number" inputmode="decimal" value="${c.split==null?(S.cmSplit==null?50:S.cmSplit):c.split}" oninput="cmPrev()"></div>
+  <div class="res" id="cpv">Digite o valor para calcular.</div>
+  <button class="btn" style="margin-top:16px" onclick="cmSave('${id||''}')">Salvar comissão</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  setCmd(cmd);$('#sheet').classList.add('on');
+}
+function setCmd(d){cmd=d;['res','inv','split'].forEach((x,i)=>{$('#cd'+(i+1)).className=x==d?'on':''});$('#csp').style.display=d=='split'?'':'none';cmPrev()}
+function cmVals(){const v=+$('#cv').value||0,pct=cmPct(),sp=Math.min(100,Math.max(0,+$('#cs').value||0));return {v,pct,sp,...cmCalc(v,pct,cmd,sp)}}
+function cmPrev(){
+  const c=cmVals(),el=$('#cpv');
+  if(!(c.v>0)){el.textContent='Digite o valor para calcular.';return}
+  el.innerHTML=`Separado (${c.pct}%): <b>${R(c.sep)}</b><br>Reserva: ${R(c.res)} · Investir: ${R(c.inv)}<br>Livre para você: <b>${R(c.liv)}</b>`;
+}
+function cmRemove(id){
+  const c=(S.cm||[]).find(x=>x.id==id);if(!c)return;
+  if(c.gid){const g=S.goals.find(x=>x.id==c.gid);if(g)g.saved=Math.max(0,g.saved-c.res)}
+  S.tx=S.tx.filter(t=>t.id!='cm'+id);S.cm=S.cm.filter(x=>x.id!=id);
+}
+function cmSave(id){
+  const c=cmVals(),d=$('#cdt').value;
+  if(!(c.v>0)||!d){alert('Digite o valor e a data.');return}
+  if(id)cmRemove(id);
+  const nid=id||Date.now()+'',g=(S.goals||[]).find(x=>/reserva/i.test(x.name));
+  const e={id:nid,v:c.v,d,o:$('#co').value.trim(),p:c.pct,res:c.res,inv:c.inv,liv:c.liv,dest:cmd,split:c.sp};
+  if(g&&c.res>0){g.saved+=c.res;e.gid=g.id}
+  S.cm=S.cm||[];S.cm.push(e);
+  S.tx.push({id:'cm'+nid,type:'in',name:'Comissão'+(e.o?' · '+e.o:''),val:c.v,date:d,cat:'Salário',src:'cm'});
+  save();closeForm();render();
+}
+function cmDel(id){if(confirm('Apagar esta comissão? O valor também sai das receitas e da reserva.')){cmRemove(id);save();render()}}
+function cmApply(id){const c=S.cm.find(x=>x.id==id);if(!c)return;posForm('',{v:Math.round(c.inv*100)/100,d:c.d,n:'Comissão'});posFrom=id}
+function cmRule(){
+  const d=S.cmDest||'res';
+  $('#form').innerHTML=`<h2>Regra da comissão</h2>
+  <label>% de cada comissão que será separado</label><input id="rp" type="number" inputmode="decimal" value="${cmPct()}">
+  <label>Destino padrão do separado</label><select id="rd"><option value="res"${d=='res'?' selected':''}>Reserva de emergência</option><option value="inv"${d=='inv'?' selected':''}>Investimentos</option><option value="split"${d=='split'?' selected':''}>Dividir</option></select>
+  <label>Ao dividir: % do separado para a reserva</label><input id="rs" type="number" inputmode="decimal" value="${S.cmSplit==null?50:S.cmSplit}">
+  <small style="color:var(--mu);display:block;margin-top:8px">A regra vale para as próximas comissões. As já cadastradas não mudam.</small>
+  <button class="btn" style="margin-top:16px" onclick="cmRuleSave()">Salvar regra</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function cmRuleSave(){
+  const p=+$('#rp').value;if(!(p>0&&p<=100)){alert('Digite uma porcentagem de 1 a 100.');return}
+  S.cmPct=p;S.cmDest=$('#rd').value;S.cmSplit=Math.min(100,Math.max(0,+$('#rs').value||0));save();closeForm();render();
+}
+/* ===== MENU ＋ (atalhos) ===== */
+const QA=[['💸','Receita ou despesa',()=>openForm()],['🔔','Conta a pagar',()=>{openForm();$('#fb').checked=true}],['💼','Nova comissão',()=>cmForm()],['🎯','Nova meta',()=>goalForm()],['📅','Novo compromisso',()=>agForm('')],['📈','Novo investimento',()=>posForm()]];
+function qaBuild(){$('#qa').innerHTML=`<div class="qb" onclick="qaClose()"></div><div class="ql">${QA.map((a,i)=>`<button class="qi" style="--i:${i}" onclick="qaRun(${i})"><span>${a[0]}</span>${a[1]}</button>`).join('')}</div>`}
+function toggleQA(){const q=$('#qa'),on=!q.classList.contains('on');if(on&&!q.firstChild)qaBuild();q.classList.toggle('on',on);$('#add').classList.toggle('x',on)}
+function qaClose(){const q=$('#qa');if(q)q.classList.remove('on');const a=$('#add');if(a)a.classList.remove('x')}
+function qaRun(i){qaClose();QA[i][2]()}
+/* ===== BOAS-VINDAS ===== */
+const MP=['M372 197 C395 140 435 100 480 88 L737 86 L712 142 L508 144 C438 150 398 170 372 197 Z','M462 222 L478 183 L668 183 L646 239 L508 239 L508 366 L462 366 Z','M406 240 L441 212 L441 366 L406 366 Z','M352 284 L390 258 L390 366 L352 366 Z','M300 336 L336 312 L336 366 L300 366 Z'];
+let wt=null;
+const WX={0:['Céu limpo','☀️','🌙'],1:['Poucas nuvens','🌤️','☁️'],2:['Parcialmente nublado','⛅','☁️'],3:['Nublado','☁️','☁️'],45:['Neblina','🌫️','🌫️'],48:['Neblina','🌫️','🌫️'],51:['Garoa','🌦️','🌧️'],53:['Garoa','🌦️','🌧️'],55:['Garoa','🌦️','🌧️'],61:['Chuva fraca','🌧️','🌧️'],63:['Chuva','🌧️','🌧️'],65:['Chuva forte','🌧️','🌧️'],80:['Pancadas de chuva','🌧️','🌧️'],81:['Pancadas de chuva','🌧️','🌧️'],82:['Chuva forte','🌧️','🌧️'],95:['Tempestade','⛈️','⛈️'],96:['Tempestade','⛈️','⛈️'],99:['Tempestade','⛈️','⛈️']};
+function showWelcome(){
+  WP=PH[Math.floor(Math.random()*PH.length)];
+  const w=$('#welcome');w.classList.add('on');paintWelcome();
+  clearInterval(wt);wt=setInterval(tickClock,1000);loadWeather();
+}
+function stopWelcome(){clearInterval(wt);$('#welcome').classList.remove('on')}
+function paintWelcome(){
+  $('#welcome').innerHTML=`<div class="wbox">
+  <div class="wlogo"><svg viewBox="280 70 480 310" width="86" aria-hidden="true"><defs><linearGradient id="sv2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8E8E8"/><stop offset=".4" stop-color="#C0C0C0"/><stop offset=".65" stop-color="#808080"/><stop offset=".88" stop-color="#E8E8E8"/><stop offset="1" stop-color="#A8A8A8"/></linearGradient></defs><g fill="url(#sv2)">${MP.map(d=>`<path d="${d}"/>`).join('')}</g></svg><div class="wb">FREIVORA</div></div>
+  <div class="wmid"><div class="wgr" id="wg"></div><div class="wclock" id="wh"></div><div class="wdate" id="wd"></div><div class="wx" id="wx"></div></div>
+  ${agWidget()}
+  <div class="wmsg"><p class="wph" id="wp">“${esc(curPhrase())}”</p>${phraseMode()=='fixed'?'':'<button class="wlink" onclick="shufflePhrase()">↻ Outra frase</button>'}</div>
+  <button class="btn wgo" onclick="startApp()">Vamos começar</button></div>`;
+  tickClock();
+}
+function tickClock(){
+  const d=new Date(),h=d.getHours(),g=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  const a=$('#wh');if(!a)return;
+  a.textContent=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const dt=d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+  $('#wd').textContent=dt[0].toUpperCase()+dt.slice(1);
+  $('#wg').textContent=g+', '+fn();
+}
+function shufflePhrase(){let n;do{n=PH[Math.floor(Math.random()*PH.length)]}while(n==WP&&PH.length>1);WP=n;$('#wp').textContent='“'+WP+'”'}
+function startApp(){stopWelcome();tab='home';render();scrollTo(0,0)}
+const gps=()=>new Promise(r=>{if(!navigator.geolocation)return r(null);navigator.geolocation.getCurrentPosition(p=>r({lat:p.coords.latitude,lon:p.coords.longitude,name:''}),()=>r(null),{timeout:8000,maximumAge:36e5})});
+function showWx(c){
+  const el=$('#wx');if(!el)return;const i=WX[c.code]||['Tempo','🌡️','🌡️'];
+  el.textContent=`${c.day?i[1]:i[2]||i[1]} ${Math.round(c.temp)}°C · ${i[0]}${c.place?' · '+c.place:''}`;
+}
+async function loadWeather(force){
+  const el=$('#wx');if(!el)return;
+  const k=S.city||'gps',c=S.wx;
+  if(!force&&c&&c.k==k&&Date.now()-c.t<18e5){showWx(c);return}
+  el.textContent='Buscando o clima...';
+  try{
+    let loc=null;
+    if(S.city){
+      if(!S.cityLoc||S.cityLoc.q!=S.city){
+        const g=await J(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(S.city)}&count=1&language=pt&format=json`),r=g.results&&g.results[0];
+        if(r){S.cityLoc={q:S.city,lat:r.latitude,lon:r.longitude,name:r.name};save()}
+      }
+      loc=S.cityLoc;
+    }else loc=await gps();
+    if(!loc){el.innerHTML='<button class="wlink" onclick="loadWeather(true)">📍 Ativar o clima</button>';return}
+    const j=await J(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weather_code,is_day&timezone=auto`);
+    S.wx={t:Date.now(),k,temp:j.current.temperature_2m,code:j.current.weather_code,day:j.current.is_day,place:loc.name||''};save();showWx(S.wx);
+  }catch(e){const x=$('#wx');if(x)x.textContent='Clima indisponível agora.'}
+}
+/* ===== RECUPERAÇÃO DE SENHA ===== */
+const AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function newCode(){
+  let c='';try{c=[...crypto.getRandomValues(new Uint8Array(12))].map(x=>AL[x%AL.length]).join('')}catch(e){for(let i=0;i<12;i++)c+=AL[Math.floor(Math.random()*AL.length)]}
+  return c.match(/.{4}/g).join('-');
+}
+function codeSheet(code){
+  $('#form').innerHTML=`<h2>Seu código de recuperação</h2>
+  <p style="color:var(--mu);font-size:14px;margin:6px 0 12px">Guarde este código em um lugar seguro. Se esquecer a senha, ele permite criar uma nova. Ele aparece só desta vez.</p>
+  <div class="res" style="text-align:center;font-size:24px;font-weight:700;letter-spacing:.08em;font-family:ui-monospace,Menlo,monospace">${code}</div>
+  <button class="btn g" style="margin-top:12px" onclick="try{navigator.clipboard.writeText('${code}');this.textContent='Copiado'}catch(e){}">Copiar código</button>
+  <button class="btn" style="margin-top:8px" onclick="closeForm()">Já guardei</button>`;
+  $('#sheet').classList.add('on');
+}
+function recUI(){
+  if(cloudOn())return recUICloud();
+  $('#auth').innerHTML=`<div class="box"><h1>FREIVORA</h1><p class="sub">Recuperar senha</p>
+  <label>Usuário</label><input id="ru" autocapitalize="none" placeholder="ex.: freitas">
+  <label>Código de recuperação</label><input id="rc" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX">
+  <label>Nova senha</label><input id="rn" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+  <label>Repetir nova senha</label><input id="rr" type="password" autocomplete="new-password">
+  <div id="aerr" style="color:var(--bad);font-size:14px;min-height:20px;margin:10px 0 4px"></div>
+  <button class="btn" onclick="doRec()">Redefinir senha</button>
+  <div style="height:1px;background:var(--line);margin:22px 0"></div>
+  <label>Ou receba um link por e-mail</label><input id="re" type="email" autocapitalize="none" placeholder="voce@email.com">
+  <button class="btn g" style="margin-top:10px" onclick="sendLink()">Enviar link de recuperação</button>
+  <button class="btn g" style="margin-top:10px" onclick="amode='in';authUI()">Voltar para entrar</button></div>`;
+}
+const aerr=(m,ok)=>{const e=$('#aerr');e.style.color=ok?'var(--ok)':'var(--bad)';e.textContent=m};
+async function doRec(){
+  const u=$('#ru').value.trim().toLowerCase(),c=$('#rc').value.toUpperCase().replace(/[^A-Z0-9]/g,''),n=$('#rn').value;
+  try{
+    const x=AC.users[u];
+    if(!x||!x.rc||await hash(c,x.salt)!==x.rc)return aerr('Usuário ou código de recuperação incorretos.');
+    if(n.length<6)return aerr('A nova senha precisa ter pelo menos 6 caracteres.');
+    if(n!==$('#rr').value)return aerr('As senhas não são iguais.');
+    const salt=rnd(),code=newCode();
+    x.salt=salt;x.hash=await hash(n,salt);x.rc=await hash(code.replace(/-/g,''),salt);
+    AC.cur=u;saveAC();enter(u);codeSheet(code);
+  }catch(e){aerr('Não consegui redefinir. Tente de novo.')}
+}
+async function sendLink(){
+  const em=$('#re').value.trim().toLowerCase();
+  if(!/^\S+@\S+\.\S+$/.test(em))return aerr('Digite um e-mail válido.');
+  if(cloudOn()){try{await needSB();const {error}=await SB.auth.resetPasswordForEmail(em,{redirectTo:homeUrl()});if(error)throw error;return aerr('Se esse e-mail tiver conta, o link chega em instantes.',1)}catch(e){return aerr('Não consegui enviar. Tente de novo mais tarde.')}}
+  if(!AC.api)return aerr('O envio por e-mail precisa da nuvem. Toque em Configurar conta na nuvem, ou use o código de recuperação.');
+  try{
+    const r=await fetch(AC.api.replace(/\/$/,'')+'/recover',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em})});
+    if(!r.ok)throw 0;aerr('Se esse e-mail estiver cadastrado, o link chega em instantes.',1);
+  }catch(e){aerr('Não consegui enviar. Tente de novo mais tarde.')}
+}
+function emailForm(){if(CL){alert('Seu e-mail é o da conta na nuvem: '+CL.email);return}
+  const x=AC.users[AC.cur];
+  $('#form').innerHTML=`<h2>E-mail de recuperação</h2><label>E-mail</label><input id="em" type="email" autocapitalize="none" value="${esc(x.email||'')}" placeholder="voce@email.com">
+  <button class="btn" style="margin-top:16px" onclick="saveEmail()">Salvar</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function saveEmail(){const v=$('#em').value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(v)){alert('Digite um e-mail válido.');return}AC.users[AC.cur].email=v;saveAC();closeForm();render()}
+async function renewCode(){if(CL){alert('Na conta na nuvem, a recuperação é pelo link enviado ao seu e-mail.');return}
+  if(!confirm('Gerar um novo código? O código antigo deixa de valer.'))return;
+  const x=AC.users[AC.cur],code=newCode();x.rc=await hash(code.replace(/-/g,''),x.salt);saveAC();codeSheet(code);
+}
+/* ===== CONFIGURAÇÕES (engrenagem) ===== */
+const srow=(ic,t,sub,act,cls)=>`<button class="srow ${cls||''}" onclick="${act}"><span class="si">${ico(ic,20)}</span><span class="st"><b>${t}</b>${sub?`<small>${sub}</small>`:''}</span><span class="sc">›</span></button>`;
+let sv='main';
+function settings(){return sv=='of'?setOF():sv=='api'?setAPI():settingsMain()}
+function settingsMain(){
+  const dark=document.documentElement.dataset.theme=='dark';
+  return `<header class="sub"><button class="back" onclick="tab='home';render()" aria-label="Voltar">←</button><h1>Configurações</h1></header>
+  <div class="card"><div style="display:flex;align-items:center;gap:14px"><div class="ic" style="border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));color:var(--on);font-weight:700;font-size:18px">${esc(fn()[0].toUpperCase())}</div><div><b>${esc(nm())}</b><br><small style="color:var(--mu)">${CL?esc(CL.email):'@'+esc(AC.cur)}</small></div></div></div>
+  <div class="card sg">${srow('user','Alterar nome',esc(nm()),'nameForm()')}${srow('lines','Frase do dia',esc(phraseMode()=='fixed'?(S.phrase||PH[0]):'Aleatória, muda a cada abertura'),'phraseForm()')}</div>
+  <div class="card sg">${srow('spark','Assistente de IA','Abrir o chat',"tab='ai';render()")}${srow('trash','Limpar conversa do assistente','',"if(confirm('Apagar a conversa do assistente?')){S.chat=[];save();render()}")}</div>
+  <div class="card sg">${srow('cloud','Conta na nuvem',CL?'Conectado: '+esc(CL.email):cloudOn()?'Configurada':'Não configurada','cfgForm()')}${srow('plug','Open Finance',S.api?(S.ofAt?'Última sincronização: '+S.ofAt:'Servidor configurado'):'Não configurado',"sv='of';render()")}${srow('chart','Investimentos: APIs',(S.token?1:0)+(S.av?1:0)+' de 2 chaves configuradas',"sv='api';render()")}${srow('pin','Cidade do clima',esc(S.city||'Automático, pela localização'),'cityForm()')}</div>
+  <div class="card sg"><button class="srow" onclick="toggleTheme()"><span class="si">${ico(dark?'moon':'sun',20)}</span><span class="st"><b>Modo escuro</b><small>${dark?'Ligado':'Desligado'}</small></span><span class="swt ${dark?'on':''}"><i></i></span></button></div>
+  <div class="card sg">${srow('mail','E-mail de recuperação',esc(CL?CL.email:(AC.users[AC.cur]||{}).email||'Não cadastrado'),'emailForm()')}${CL?'':srow('key','Novo código de recuperação','Use se esquecer a senha','renewCode()')}${srow('lock','Alterar senha','','pwForm()')}${srow('out','Sair da conta',CL?esc(CL.email):'@'+esc(AC.cur),'logout()','bad')}</div>
+  <small style="display:block;text-align:center;color:var(--mu);padding:4px 20px 10px">Seus dados ficam salvos só neste aparelho.</small>`;
+}
+function setOF(){
+  return `<header class="sub"><button class="back" onclick="sv='main';render()" aria-label="Voltar">←</button><h1>Open Finance</h1></header>
+  <div class="card"><h2>Servidor</h2><label>Endereço do servidor Open Finance</label>
+  <input value="${esc(S.api||'')}" placeholder="https://..." onchange="S.api=this.value.trim();AC.api=S.api;save();saveAC()">
+  <label style="margin-top:12px">Chave de acesso do servidor</label><input type="password" value="${esc(S.apiTok||'')}" placeholder="a mesma que você definiu no servidor" onchange="S.apiTok=this.value.trim();save()">
+  <button class="btn" style="margin-top:14px" onclick="syncOF()">Sincronizar agora</button>
+  <div id="ofs" style="margin-top:10px;color:var(--mu);font-size:14px">${S.ofAt?'Última sincronização: '+S.ofAt:'Ainda não sincronizado.'}</div></div>
+  <div class="card"><h2>Como funciona</h2><div class="res">1. Conecte PicPay e Itaú no Meu Pluggy.<br>2. Crie o servidor gratuito com o arquivo worker-open-finance.js e suas credenciais.<br>3. Cole aqui o endereço e a chave de acesso do servidor.<br>4. Toque em Sincronizar: as compras do cartão aparecem na aba Cartões, separadas por banco.</div></div>`;
+}
+function setAPI(){
+  return `<header class="sub"><button class="back" onclick="sv='main';render()" aria-label="Voltar">←</button><h1>Investimentos: APIs</h1></header>
+  <div class="card"><h2>Bolsa brasileira (brapi)</h2><label>Token</label><input value="${esc(S.token||'')}" placeholder="cole aqui" onchange="S.token=this.value.trim();save();render()">
+  <small style="color:var(--mu);display:block;margin-top:8px">Para ações, FIIs e ETFs do Brasil. Token grátis em brapi.dev.</small></div>
+  <div class="card"><h2>Bolsa internacional (Alpha Vantage)</h2><label>Chave</label><input value="${esc(S.av||'')}" placeholder="cole aqui" onchange="S.av=this.value.trim();save();render()">
+  <small style="color:var(--mu);display:block;margin-top:8px">Para ações dos EUA. Chave grátis em alphavantage.co, com limite diário.</small></div>
+  <div class="card"><div class="res">Moedas e cripto funcionam sem chave. As chaves ficam salvas só neste aparelho.</div></div>`;
+}
+function cityForm(){
+  $('#form').innerHTML=`<h2>Cidade do clima</h2><small style="color:var(--mu)">Deixe vazio para usar a localização do aparelho.</small>
+  <label>Cidade</label><input id="ct" value="${esc(S.city||'')}" placeholder="Ex.: Cabo Frio">
+  <button class="btn" style="margin-top:16px" onclick="S.city=$('#ct').value.trim();S.cityLoc=null;S.wx=null;save();closeForm();render()">Salvar</button>
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function toggleTheme(){S.theme=document.documentElement.dataset.theme=='dark'?'light':'dark';save();applyTheme();render()}
+function nameForm(){
+  $('#form').innerHTML=`<h2>Alterar nome</h2><label>Como quer ser chamado</label><input id="nn" value="${esc(nm())}" maxlength="30">
+  <button class="btn" style="margin-top:16px" onclick="saveName()">Salvar</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function saveName(){const v=$('#nn').value.trim();if(!v){alert('Digite um nome.');return}if(CL){CL.name=v;if(SB)SB.auth.updateUser({data:{name:v}}).catch(()=>{})}else{AC.users[AC.cur].name=v;saveAC()}closeForm();render()}
+function pwForm(){if(CL)return pwCloud();
+  $('#form').innerHTML=`<h2>Alterar senha</h2>
+  <label>Senha atual</label><input id="po" type="password" autocomplete="current-password">
+  <label>Nova senha</label><input id="pn" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+  <label>Repetir nova senha</label><input id="pr" type="password" autocomplete="new-password">
+  <div id="perr" style="color:var(--bad);font-size:14px;min-height:20px;margin-top:10px"></div>
+  <button class="btn" onclick="savePw()">Salvar senha</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+async function savePw(){
+  const x=AC.users[AC.cur],o=$('#po').value,n=$('#pn').value,r=$('#pr').value,er=m=>{$('#perr').textContent=m};
+  try{
+    if(await hash(o,x.salt)!==x.hash)return er('A senha atual está incorreta.');
+    if(n.length<6)return er('A nova senha precisa ter pelo menos 6 caracteres.');
+    if(n!==r)return er('As senhas novas não são iguais.');
+    const salt=rnd();x.salt=salt;x.hash=await hash(n,salt);saveAC();closeForm();alert('Senha alterada.');
+  }catch(e){er('Não consegui alterar. Tente de novo.')}
+}
+/* ===== NUVEM (Supabase): banco de dados de login, Google e Apple ===== */
+const SBU=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4','https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'];
+const homeUrl=()=>location.href.split('#')[0].split('?')[0];
+const loadScript=u=>new Promise((ok,no)=>{const c=document.createElement('script');c.src=u;c.onload=ok;c.onerror=()=>{c.remove();no(new Error('load'))};document.head.appendChild(c)});
+async function needSB(){
+  if(SB)return SB;
+  if(!window.supabase){for(const u of SBU){try{await loadScript(u);if(window.supabase)break}catch(e){}}}
+  if(!window.supabase)throw new Error('lib');
+  SB=window.supabase.createClient(CFG.url,CFG.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  SB.auth.onAuthStateChange(ev=>{if(ev=='PASSWORD_RECOVERY')newPwUI()});
+  return SB;
+}
+const cloudMsg=e=>{const m=(e&&e.message)||'';return /Invalid login/i.test(m)?'E-mail ou senha incorretos.':/already registered/i.test(m)?'Esse e-mail já tem conta. Entre ou recupere a senha.':/not confirmed/i.test(m)?'Confirme seu e-mail pelo link que enviamos.':'Não consegui concluir. Confira a conexão e a configuração da nuvem.'};
+const GIC='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 12h-8M19.2 8.6A8 8 0 1 0 20 12c0 4.4-3.6 8-8 8"/></svg>',AIC='<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8C6.9 7.5 5.4 8.4 4.6 9.8c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.8-4.2zM14.2 5.4c.6-.8 1.1-1.8.9-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.8-1.3z"/></svg>';
+async function oauth(p){
+  if(!cloudOn()){cfgForm();return}
+  if(location.protocol=='file:'){aerr('O login com Google e Apple só funciona com o app hospedado em um endereço https. Veja o guia da nuvem.');return}
+  try{await needSB();const {error}=await SB.auth.signInWithOAuth({provider:p,options:{redirectTo:homeUrl()}});if(error)throw error}
+  catch(e){aerr('Não consegui abrir o login com '+(p=='apple'?'Apple':'Google')+'. Confira a configuração da nuvem.')}
+}
+async function cloudAuth(){
+  const up=amode=='up',email=$('#ae').value.trim().toLowerCase(),p=$('#ap2').value;
+  try{
+    if(!/^\S+@\S+\.\S+$/.test(email))return aerr('Digite um e-mail válido.');
+    if(p.length<6)return aerr('A senha precisa ter pelo menos 6 caracteres.');
+    await needSB();
+    if(up){
+      const name=$('#an').value.trim();
+      if(!name)return aerr('Digite seu nome.');
+      if(p!==$('#ap3').value)return aerr('As senhas não são iguais.');
+      const {data,error}=await SB.auth.signUp({email,password:p,options:{data:{name},emailRedirectTo:homeUrl()}});
+      if(error)throw error;
+      if(!data.session)return aerr('Enviamos um e-mail para confirmar sua conta. Abra o link e depois entre.',1);
+      return enterCloud(data.user);
+    }
+    const {data,error}=await SB.auth.signInWithPassword({email,password:p});
+    if(error)throw error;enterCloud(data.user);
+  }catch(e){aerr(cloudMsg(e))}
+}
+function enterCloud(u){
+  const md=u.user_metadata||{};
+  CL={id:u.id,email:u.email||'',name:md.name||md.full_name||(u.email||'').split('@')[0]||'você'};
+  KEY='fin_c_'+u.id;S=load(KEY);
+  $('#auth').classList.remove('on');tab='home';iv={v:'grid'};sv='main';applyTheme();render();scrollTo(0,0);showWelcome();
+  pullCloud();
+}
+async function pullCloud(){
+  try{
+    const {data,error}=await SB.from('user_data').select('data').eq('user_id',CL.id).maybeSingle();
+    if(error)throw error;
+    const c=data&&data.data;
+    if(c&&(c._t||0)>(S._t||0)){
+      const keep={token:S.token,av:S.av,chat:S.chat,wx:S.wx,cityLoc:S.cityLoc};
+      S=Object.assign(DEF(),c,keep);save(1);render();
+    }else pushNow();
+  }catch(e){}
+}
+function recUICloud(){
+  $('#auth').innerHTML=`<div class="box"><h1>FREIVORA</h1><p class="sub">Recuperar senha</p>
+  <label>E-mail da sua conta</label><input id="re" type="email" autocapitalize="none" placeholder="voce@email.com">
+  <div id="aerr" style="color:var(--bad);font-size:14px;min-height:20px;margin:10px 0 4px"></div>
+  <button class="btn" onclick="sendLink()">Enviar link de recuperação</button>
+  <button class="btn g" style="margin-top:10px" onclick="amode='in';authUI()">Voltar para entrar</button></div>`;
+}
+function newPwUI(){
+  amode='newpw';$('#auth').classList.add('on');
+  $('#auth').innerHTML=`<div class="box"><h1>FREIVORA</h1><p class="sub">Crie sua nova senha</p>
+  <label>Nova senha</label><input id="np" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+  <label>Repetir nova senha</label><input id="np2" type="password" autocomplete="new-password">
+  <div id="aerr" style="color:var(--bad);font-size:14px;min-height:20px;margin:10px 0 4px"></div>
+  <button class="btn" onclick="saveNewPw()">Salvar nova senha</button></div>`;
+}
+async function saveNewPw(){
+  const n=$('#np').value;
+  if(n.length<6)return aerr('A senha precisa ter pelo menos 6 caracteres.');
+  if(n!==$('#np2').value)return aerr('As senhas não são iguais.');
+  try{const {error}=await SB.auth.updateUser({password:n});if(error)throw error;amode='in';$('#auth').classList.remove('on');alert('Senha alterada.')}
+  catch(e){aerr('Não consegui alterar. Abra o link do e-mail de novo.')}
+}
+function pwCloud(){
+  $('#form').innerHTML=`<h2>Alterar senha</h2><label>Nova senha</label><input id="pn" type="password" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+  <label>Repetir nova senha</label><input id="pr" type="password" autocomplete="new-password">
+  <div id="perr" style="color:var(--bad);font-size:14px;min-height:20px;margin-top:10px"></div>
+  <button class="btn" onclick="savePwCloud()">Salvar senha</button><button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+async function savePwCloud(){
+  const n=$('#pn').value,er=m=>{$('#perr').textContent=m};
+  if(n.length<6)return er('A senha precisa ter pelo menos 6 caracteres.');
+  if(n!==$('#pr').value)return er('As senhas não são iguais.');
+  try{const {error}=await SB.auth.updateUser({password:n});if(error)throw error;closeForm();alert('Senha alterada.')}
+  catch(e){er('Não consegui alterar. Entre de novo e tente.')}
+}
+function cfgForm(){
+  $('#form').innerHTML=`<h2>Conta na nuvem</h2>
+  <p style="color:var(--mu);font-size:14px;margin:6px 0 4px">Guarda contas e dados no seu banco Supabase, com login por Google e Apple e link de recuperação por e-mail.</p>
+  <label>URL do projeto</label><input id="cu" value="${esc(CFG.url)}" placeholder="https://xxxx.supabase.co" autocapitalize="none">
+  <label>Chave pública (anon)</label><input id="ck" value="${esc(CFG.key)}" placeholder="cole aqui" autocapitalize="none">
+  <small style="color:var(--mu);display:block;margin-top:8px">A chave anon é pública por padrão. Ela só é segura com as regras do arquivo supabase-setup.sql.</small>
+  <button class="btn" style="margin-top:16px" onclick="saveCfg()">Salvar e recarregar</button>
+  ${cloudOn()?'<button class="btn g" style="margin-top:8px" onclick="clearCfg()">Desligar a nuvem</button>':''}
+  <button class="btn g" style="margin-top:8px" onclick="closeForm()">Cancelar</button>`;
+  $('#sheet').classList.add('on');
+}
+function saveCfg(){
+  const u=$('#cu').value.trim().replace(/\/+$/,''),k=$('#ck').value.trim();
+  if(!/^https:\/\/[^\s]+$/.test(u)||k.length<20){alert('Confira a URL (começa com https://) e a chave.');return}
+  try{localStorage.setItem('fin_cfg',JSON.stringify({url:u,key:k}))}catch(e){}
+  location.reload();
+}
+function clearCfg(){if(confirm('Desligar a nuvem? Você volta ao modo só neste aparelho.')){try{localStorage.removeItem('fin_cfg')}catch(e){}location.reload()}}
+/* ===== NAVEGAÇÃO ===== */
+function render(){
+  qaClose();
+  document.body.classList.toggle('chat',tab=='ai');document.body.classList.toggle('home',tab=='home');document.body.classList.toggle('set',tab=='settings');
+  $('#view').innerHTML={home,bills,cards,goals,invest,ai,settings,agenda,comm:comissao}[tab]();
+  document.querySelectorAll('nav button[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t==tab));
+  if(tab=='invest'){if(iv.v=='sim')pick();if(iv.v=='asset')loadAsset();if(iv.v=='grid')quotesFor(['moedas','cripto']);if(iv.v=='list')quotesFor([iv.k])}
+  if(tab=='ai'){const c=$('#chat');if(c)c.scrollTop=c.scrollHeight}
+}
+document.querySelectorAll('nav button[data-t]').forEach(b=>b.onclick=()=>{if(tab==b.dataset.t&&tab=='invest')iv={v:'grid'};tab=b.dataset.t;render();scrollTo(0,0)});
+$('#add').onclick=toggleQA;
+$('#gear').onclick=()=>{tab='settings';sv='main';render();scrollTo(0,0)};
+$('#sheet').onclick=e=>{if(e.target.id=='sheet')closeForm()};
+function applyTheme(){const d=S.theme?S.theme=='dark':true;document.documentElement.dataset.theme=d?'dark':'light';$('meta[name=theme-color]').content=d?'#000000':'#E8E8E8'}
+
+$('#gear').innerHTML=ico('gear',22);
+$('#agbtn').innerHTML=ico('cal',22);
+$('#agbtn').onclick=()=>{tab='agenda';render();scrollTo(0,0)};
+applyTheme();render();bootAuth();
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+function endSplash(){$('#splash').classList.add('off')}
+setTimeout(endSplash,matchMedia('(prefers-reduced-motion:reduce)').matches?1200:5600);
+</script>
+</body>
+</html>
